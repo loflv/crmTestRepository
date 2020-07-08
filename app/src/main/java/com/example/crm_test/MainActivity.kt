@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val findNavController = Navigation.findNavController(this, R.id.fragment)
         val appBarConfiguration = AppBarConfiguration.Builder(bottomNavigationView.menu).build()
+//        bottomNavigationView.labelVisibilityMode = 1
         NavigationUI.setupActionBarWithNavController(this, findNavController, appBarConfiguration)
         NavigationUI.setupWithNavController(bottomNavigationView, findNavController)
 

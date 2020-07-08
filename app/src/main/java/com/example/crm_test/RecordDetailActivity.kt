@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.crm_test.api.CrmApi
 import com.example.crm_test.bean.PostMesBean
+import com.example.crm_test.room.RecordDatabase
+import com.example.crm_test.room.RecordRoomBean
 import com.example.crm_test.util.MyApplication
 import com.example.crm_test.util.NetWorkUtils
 import com.orhanobut.logger.Logger
@@ -98,6 +100,17 @@ class RecordDetailActivity : AppCompatActivity() {
                 override fun onNext(t: PostMesBean) {
                     text1_content.text = t.body?.report?.content?.replace("\r", "\n")
                     text2_content.text = t.body?.report?.plan?.replace("\r", "\n")
+
+                    collect.setOnClickListener {
+                        Thread{
+                            val recordRoomBean = RecordRoomBean(
+                                t.body?.report?.user?.name!!,
+                                "日报",
+                                text1_content.text.toString()
+                            )
+                            RecordDatabase.recordDb!!.recordDao.insertRecord(recordRoomBean)
+                        }.start()
+                    }
                 }
 
                 override fun onError(e: Throwable) {

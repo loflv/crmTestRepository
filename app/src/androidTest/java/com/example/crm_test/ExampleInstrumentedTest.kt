@@ -1,19 +1,13 @@
 package com.example.crm_test
 
 import android.util.Log
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.orhanobut.logger.Logger
 import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.Cookie
-
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.lang.Exception
 
 
 /**
@@ -25,11 +19,7 @@ import java.lang.Exception
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        Observable.create(ObservableOnSubscribe<String> {
-            it.onNext("1")
-            it.onNext("a")
-            it.onNext("2")
-        })
+        Observable.just(getInts())
             .flatMap {
                 Observable.just(it.toInt())
             }
@@ -49,5 +39,10 @@ class ExampleInstrumentedTest {
             })
 
 
+    }
+
+    fun getInts():Int{
+        Log.d("liwu2",Thread.currentThread().toString())
+        return  1
     }
 }
