@@ -121,7 +121,7 @@ class RecordFragment : Fragment() {
                     //过滤出已读提交的数据
                     val filter = t.body?.notices?.filter {
                         it.content!!.contains("提交")
-//                                && it.status == 0
+                                && it.status == 0
                     }
 
                     if (hasMore == null) {
