@@ -3,9 +3,9 @@ package com.example.crm_test.room
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.crm_test.util.MyApplication
+import com.example.crm_test.MyApplication
 
-@Database(entities = [RecordRoomBean::class], version = 3)
+@Database(entities = [RecordRoomBean::class], version = 4)
 abstract class RecordDatabase : RoomDatabase() {
     abstract val recordDao: RecordDao
 

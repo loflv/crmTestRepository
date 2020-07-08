@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crm_test.api.CrmApi
 import com.example.crm_test.bean.PostMesList
-import com.example.crm_test.util.MyApplication
 import com.example.crm_test.util.NetWorkUtils
-import com.example.crm_test.util.RecordAdapter
+import com.example.crm_test.adapter.RecordAdapter
 import com.orhanobut.logger.Logger
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,11 +41,13 @@ class RecordFragment : Fragment() {
     ): View? {
         listOf = mutableListOf()
         initData()
-        recordAdapter = RecordAdapter(listOf) { i, recordId, id ->
-            val intent = RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
-            startActivityForResult(intent, i)
+        recordAdapter =
+            RecordAdapter(listOf) { i, recordId, id ->
+                val intent =
+                    RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
+                startActivityForResult(intent, i)
 
-        }
+            }
 
         return inflater.inflate(R.layout.fragment_record, container, false)
     }

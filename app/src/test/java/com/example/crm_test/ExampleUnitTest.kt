@@ -17,16 +17,16 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        Observable.create(ObservableOnSubscribe<String> {
-            it.onNext("1")
-        }).subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                print("liwu  "+it)
-                Log.d("liwu",it)
-            }, {
-                print("liwu "+it)
-                Log.d("liwu",it.message.toString())
-            })
+//        Observable.create(ObservableOnSubscribe<String> {
+//            it.onNext("1")
+//        }).subscribeOn(Schedulers.newThread())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                print("liwu  "+it)
+//                Log.d("liwu",it)
+//            }, {
+//                print("liwu "+it)
+//                Log.d("liwu",it.message.toString())
+//            })
     }
 }

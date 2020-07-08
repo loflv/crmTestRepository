@@ -1,4 +1,4 @@
-package com.example.crm_test.util
+package com.example.crm_test.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.crm_test.R
 import com.example.crm_test.bean.PostMesList
-import com.example.crm_test.util.RecordAdapter.MyViewHolder
+import com.example.crm_test.adapter.RecordAdapter.MyViewHolder
 
 class RecordAdapter(
     var mList: List<PostMesList.BodyBean.NoticesBean>,

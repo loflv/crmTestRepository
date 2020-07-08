@@ -1,5 +1,7 @@
 package com.example.crm_test.bean
 
+
+
 class LoginBean {
     /**
      * result : {"tenant_list":[{"company":"来邦科技","user_type":"0","id":"271301","encryptionKey":"a947946c39de505676c92ae321c6a0d6"}],"passport_id":1213273632457119}
@@ -18,6 +20,8 @@ class LoginBean {
         var tenant_list: List<TenantListBean>? = null
 
         class TenantListBean {
+
+
             /**
              * company : 来邦科技
              * user_type : 0

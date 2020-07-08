@@ -10,7 +10,6 @@ import com.example.crm_test.api.CrmApi
 import com.example.crm_test.bean.PostMesBean
 import com.example.crm_test.room.RecordDatabase
 import com.example.crm_test.room.RecordRoomBean
-import com.example.crm_test.util.MyApplication
 import com.example.crm_test.util.NetWorkUtils
 import com.orhanobut.logger.Logger
 import io.reactivex.Observer
@@ -83,39 +82,30 @@ class RecordDetailActivity : AppCompatActivity() {
         }
 
         //查看详情
-        retrofitService.getRecordDetail(
+        val subscribe = retrofitService.getRecordDetail(
             intent.getLongExtra("passport_id", 0).toString(),
             userId.toString(), "2006.2"
         )
             .subscribeOn(Schedulers.newThread()).observeOn(
                 AndroidSchedulers.mainThread()
             )
-            .subscribe(object : Observer<PostMesBean> {
-                override fun onComplete() {
-                }
+            .subscribe({ res ->
+                text1_content.text = res.body?.report?.content?.replace("\r", "\n")
+                text2_content.text = res.body?.report?.plan?.replace("\r", "\n")
 
-                override fun onSubscribe(d: Disposable) {
+                collect.setOnClickListener {
+                    Thread {
+                        val recordRoomBean = RecordRoomBean(
+                            res.body?.report?.user?.name!!,
+                            "日报",
+                            text1_content.text.toString(),
+                            text2_content.text.toString()
+                        )
+                        RecordDatabase.recordDb!!.recordDao.insertRecord(recordRoomBean)
+                    }.start()
                 }
-
-                override fun onNext(t: PostMesBean) {
-                    text1_content.text = t.body?.report?.content?.replace("\r", "\n")
-                    text2_content.text = t.body?.report?.plan?.replace("\r", "\n")
-
-                    collect.setOnClickListener {
-                        Thread{
-                            val recordRoomBean = RecordRoomBean(
-                                t.body?.report?.user?.name!!,
-                                "日报",
-                                text1_content.text.toString()
-                            )
-                            RecordDatabase.recordDb!!.recordDao.insertRecord(recordRoomBean)
-                        }.start()
-                    }
-                }
-
-                override fun onError(e: Throwable) {
-                    Logger.e(e.message.toString())
-                }
+            }, {
+                Logger.e(it.message.toString())
             })
     }
 

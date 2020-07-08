@@ -1,6 +1,7 @@
 package com.example.crm_test.util
 
 import android.content.Context
+import com.example.crm_test.MyApplication
 import com.orhanobut.logger.Logger
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor

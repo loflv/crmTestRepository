@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.crm_test.api.CrmApi
 import com.example.crm_test.bean.LoginBean
-import com.example.crm_test.util.MyApplication
 import com.example.crm_test.util.NetWorkUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -77,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                 }.flatMap {
 
                     if (it.result !is LoginBean.ResultBean) {
-                        Observable.error<String>(Exception(it.error_msg))
+                        throw  Exception(it.error_msg)
                     }
 
                     MyApplication.mContext.getSharedPreferences("default", Context.MODE_PRIVATE)
