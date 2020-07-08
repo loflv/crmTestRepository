@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/recordFragment">
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.example.crm_test.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
+    <fragment
+        android:id="@+id/collectionRecord"
+        android:name="com.example.crm_test.CollectionRecord"
+        android:label="fragment_collection"
+        tools:layout="@layout/fragment_collection_record" />
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="com.example.crm_test.MyFragment"
+        android:label="fragment_my"
+        tools:layout="@layout/fragment_my" />
+</navigation>
