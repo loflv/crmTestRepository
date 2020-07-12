@@ -1,7 +1,10 @@
 package com.example.crm_test.UI.activity
 
+import android.content.Context
+import android.content.Intent
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.example.crm_test.MyApplication
 import com.example.crm_test.R
 import com.example.crm_test.UI.viewModel.MainViewModel
 import com.example.crm_test.base.BaseActivity
@@ -18,7 +21,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun initView() {
-        val findNavController = Navigation.findNavController(this,
+        val findNavController = Navigation.findNavController(
+            this,
             R.id.fragment
         )
 //        val appBarConfiguration = AppBarConfiguration.Builder(bottomNavigationView.menu).build()
@@ -28,8 +32,26 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun initData() {
-
+        isLogin()
     }
 
+
+    /**
+     * 判断是否登录
+     */
+    private fun isLogin(): Boolean {
+        val cookie = MyApplication.mContext.getSharedPreferences(
+            "login",
+            Context.MODE_PRIVATE
+        ).getString("x-ienterprise-passport", "")
+
+        if (cookie!!.isNullOrBlank()) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            return true
+        }
+        return false
+    }
 
 }

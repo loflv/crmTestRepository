@@ -25,8 +25,6 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
 
     override fun initView() {
 
-        if (isLogin()) return
-
         supportActionBar?.hide()
 
         clickEvent()
@@ -41,23 +39,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
         }
     }
 
-    /**
-     * 判断是否登录
-     */
-    private fun isLogin(): Boolean {
-        val cookie = MyApplication.mContext.getSharedPreferences(
-            "login",
-            Context.MODE_PRIVATE
-        ).getString("x-ienterprise-passport", "")
 
-        if (cookie!!.isNotBlank()) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-            return true
-        }
-        return false
-    }
 
     /**
      * 过期重新登录时

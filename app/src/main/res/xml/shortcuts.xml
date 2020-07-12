@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_login"
+        android:shortcutDisabledMessage="@string/action_sign_in_short"
+        android:shortcutId="mall"
+        android:shortcutLongLabel="@string/title_activity_login"
+        android:shortcutShortLabel="@string/title_activity_login">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.example.crm_test.UI.activity.LoginActivity"
+            android:targetPackage="com.example.crm_test" />
+
+    </shortcut>
+</shortcuts>
