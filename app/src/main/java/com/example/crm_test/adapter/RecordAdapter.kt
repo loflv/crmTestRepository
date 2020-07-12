@@ -7,8 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.crm_test.R
-import com.example.crm_test.bean.PostMesList
 import com.example.crm_test.adapter.RecordAdapter.MyViewHolder
+import com.example.crm_test.bean.PostMesList
+import java.text.SimpleDateFormat
 
 class RecordAdapter(
     var mList: List<PostMesList.BodyBean.NoticesBean>,
@@ -23,7 +24,8 @@ class RecordAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.mName.text = mList[position].user!!.name + "提交了日志"
+        holder.mName.text =
+            SimpleDateFormat("MM/dd HH:mm :  ").format(mList[position].created) + mList[position].user!!.name + "提交了日志"
         holder.mContent.setOnClickListener {
             callback(position, mList[position].operate, mList[position].id)
         }

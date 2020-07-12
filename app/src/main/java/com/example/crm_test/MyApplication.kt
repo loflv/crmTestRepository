@@ -6,11 +6,14 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
+import java.lang.reflect.Field
+import java.lang.reflect.Method
 
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         initLogger()
+        closeAndroidPDialog()
     }
 
     /**
@@ -32,5 +35,31 @@ class MyApplication : Application() {
 
     companion object {
         lateinit var mContext: Context
+    }
+
+    /**
+     * 也可调整target 版本实现
+     */
+    private fun closeAndroidPDialog() {
+        try {
+            val aClass =
+                Class.forName("android.content.pm.PackageParser\$Package")
+            val declaredConstructor =
+                aClass.getDeclaredConstructor(String::class.java)
+            declaredConstructor.setAccessible(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        try {
+            val cls = Class.forName("android.app.ActivityThread")
+            val declaredMethod: Method = cls.getDeclaredMethod("currentActivityThread")
+            declaredMethod.setAccessible(true)
+            val activityThread: Any = declaredMethod.invoke(null)
+            val mHiddenApiWarningShown: Field = cls.getDeclaredField("mHiddenApiWarningShown")
+            mHiddenApiWarningShown.setAccessible(true)
+            mHiddenApiWarningShown.setBoolean(activityThread, true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

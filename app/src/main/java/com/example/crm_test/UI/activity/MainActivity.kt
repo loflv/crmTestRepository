@@ -1,7 +1,6 @@
 package com.example.crm_test.UI.activity
 
 import androidx.navigation.Navigation
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.crm_test.R
 import com.example.crm_test.UI.viewModel.MainViewModel
@@ -22,9 +21,9 @@ class MainActivity : BaseActivity<MainViewModel>() {
         val findNavController = Navigation.findNavController(this,
             R.id.fragment
         )
-        val appBarConfiguration = AppBarConfiguration.Builder(bottomNavigationView.menu).build()
+//        val appBarConfiguration = AppBarConfiguration.Builder(bottomNavigationView.menu).build()
 //        bottomNavigationView.labelVisibilityMode = 1
-        NavigationUI.setupActionBarWithNavController(this, findNavController, appBarConfiguration)
+//        NavigationUI.setupActionBarWithNavController(this, findNavController, appBarConfiguration)
         NavigationUI.setupWithNavController(bottomNavigationView, findNavController)
     }
 

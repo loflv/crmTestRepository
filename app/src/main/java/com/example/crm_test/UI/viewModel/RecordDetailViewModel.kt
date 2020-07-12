@@ -18,7 +18,7 @@ class RecordDetailViewModel : BaseViewModel() {
     lateinit var text1_content: String
     lateinit var text2_content: String
 
-     var postMesBeanLiveData: MutableLiveData<PostMesBean> = MutableLiveData()
+    var postMesBeanLiveData: MutableLiveData<PostMesBean> = MutableLiveData()
 
     var sendSuccess: MutableLiveData<Int> = MutableLiveData()
 
@@ -42,11 +42,27 @@ class RecordDetailViewModel : BaseViewModel() {
             }
             phoneRetrofitService.sendMesRead(
                 "1",
-                passport_id,
+                id,
                 "1213283083206995",
                 "2006.2"
             )
 
+            Toast.makeText(MyApplication.mContext, "发送成功", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * 标记为已读
+     */
+    fun signRead() {
+        launch {
+            val phoneRetrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
+            phoneRetrofitService.sendMesRead(
+                "1",
+                id,
+                "1213283083206995",
+                "2006.2"
+            )
             Toast.makeText(MyApplication.mContext, "发送成功", Toast.LENGTH_SHORT).show()
         }
     }

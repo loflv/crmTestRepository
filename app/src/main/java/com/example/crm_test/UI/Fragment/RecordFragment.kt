@@ -31,6 +31,7 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         my_recycler.adapter?.notifyItemRangeChanged(requestCode, mFragmentViewModel.getList().size)
     }
 
+
     override fun initData() {
         if (mFragmentViewModel.number > 3) {
             return

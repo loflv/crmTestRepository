@@ -60,6 +60,10 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
             baseViewModel.insertDatabase(recordRoomBean)
         }
 
+        signRead.setOnClickListener {
+            baseViewModel.signRead()
+        }
+
     }
 
     override fun initData() {

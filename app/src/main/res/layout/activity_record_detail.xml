@@ -62,8 +62,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/read"
@@ -72,7 +71,16 @@
                     android:layout_margin="10dp"
                     android:layout_marginBottom="35dp"
                     android:layout_weight="1"
-                    android:text="已阅" />
+                    android:text="发送已阅" />
+
+                <Button
+                    android:id="@+id/signRead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_marginBottom="35dp"
+                    android:layout_weight="1"
+                    android:text="标记为已读" />
 
                 <Button
                     android:id="@+id/collect"
@@ -84,6 +92,12 @@
                     android:text="收藏" />
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="标记为已读：某人重复提交时，无需重复发送\n收藏的记录可以在收集中查约" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
