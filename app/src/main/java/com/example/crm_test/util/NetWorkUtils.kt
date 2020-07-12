@@ -1,9 +1,12 @@
 package com.example.crm_test.util
 
 import android.content.Context
+import androidx.core.content.edit
 import com.example.crm_test.MyApplication
 import com.orhanobut.logger.Logger
-import okhttp3.*
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -41,7 +44,6 @@ object NetWorkUtils {
                             original.newBuilder()
                                 .build()
 
-                        val newBuilder = original.newBuilder()
                         val proceed = chain.proceed(request)
                         val headers = proceed.headers("Set-Cookie")
                         var cookie = ""
@@ -52,47 +54,32 @@ object NetWorkUtils {
                                     cookie += "SESSION=$reSub;"
                                 }
                             }
+                            s_cookie = cookie
 
-                            val reSub1 = reSub(header, "__jsluid_s")
-                            reSub1?.isNotEmpty()?.let {
-                                if (it) {
-                                    cookie += "__jsluid_s=$reSub1;"
-                                }
-                            }
-
-                            val reSub3 = reSub(header, "x-ienterprise-tenant")
-                            reSub1?.isNotEmpty()?.let {
-                                MyApplication.mContext.getSharedPreferences(
-                                    "default",
-                                    Context.MODE_PRIVATE
-                                )
-                                    .edit()
-                                    .putString("x-ienterprise-tenant", cookie).apply()
-                            }
+                        }
+                        MyApplication.mContext.getSharedPreferences(
+                            "login",
+                            Context.MODE_PRIVATE
+                        ).edit {
+                            putString("Cookie", s_cookie)
                         }
 
-                        s_cookie = cookie
-
-                        MyApplication.mContext.getSharedPreferences("default", Context.MODE_PRIVATE)
-                            .edit()
-                            .putString("Cookie", cookie).apply()
-
+                        val newBuilder = original.newBuilder()
                         newBuilder.addHeader("Cookie", cookie)
                         newBuilder.addHeader("User-Agent", "PostmanRuntime/7.24.1")
 
                         return chain.proceed(newBuilder.build())
                     } else {
-
                         if (s_cookie == null) {
                             s_cookie = MyApplication.mContext.getSharedPreferences(
-                                "default",
+                                "login",
                                 Context.MODE_PRIVATE
                             ).getString("Cookie", "")!!
                         }
 
                         if (ienterprise_passport.isNullOrBlank()) {
                             ienterprise_passport = MyApplication.mContext.getSharedPreferences(
-                                "default",
+                                "login",
                                 Context.MODE_PRIVATE
                             ).getString("x-ienterprise-passport", "")!!
                         }
@@ -143,14 +130,14 @@ object NetWorkUtils {
 
                     if (ienterprise_passport.isNullOrBlank()) {
                         ienterprise_passport = MyApplication.mContext.getSharedPreferences(
-                            "default",
+                            "login",
                             Context.MODE_PRIVATE
                         ).getString("x-ienterprise-passport", "")!!
                     }
 
-                    if(s_cookie.isNullOrBlank()){
-                        s_cookie =  MyApplication.mContext.getSharedPreferences(
-                            "default",
+                    if (s_cookie.isNullOrBlank()) {
+                        s_cookie = MyApplication.mContext.getSharedPreferences(
+                            "login",
                             Context.MODE_PRIVATE
                         ).getString("cookie", "")!!
                     }

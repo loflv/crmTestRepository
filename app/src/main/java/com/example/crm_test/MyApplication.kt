@@ -10,6 +10,13 @@ import com.orhanobut.logger.PrettyFormatStrategy
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        initLogger()
+    }
+
+    /**
+     * 初始化logger
+     */
+    private fun initLogger() {
         val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
             .showThreadInfo(false)
             .methodCount(1)

@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.crm_test.CollectionDetailActivity
 import com.example.crm_test.R
 import com.example.crm_test.databinding.LayoutCollectionItemBinding
 import com.example.crm_test.room.RecordRoomBean
 
-class ColleactionAdatper(val content: Context, val listLiveDate: MutableList<RecordRoomBean>) :
+class ColleactionAdatper(val content: Context, val listLiveDate: MutableList<RecordRoomBean>, val callback: (Int, Long) -> Unit) :
     RecyclerView.Adapter<ColleactionAdatper.ColleactionViewHolder>() {
 
 
@@ -40,12 +39,8 @@ class ColleactionAdatper(val content: Context, val listLiveDate: MutableList<Rec
         holder.bindingUtil.recordName.text = "${listLiveDate[position].name}的--"
         holder.bindingUtil.titleContent.text = listLiveDate[position].title
         holder.bindingUtil.container.setOnClickListener {
-            content.startActivity(
-                CollectionDetailActivity.jumpToCollectionDetail(
-                    content,
-                    listLiveDate[position].id
-                )
-            )
+
+            callback(position,listLiveDate[position].id)
 
         }
     }

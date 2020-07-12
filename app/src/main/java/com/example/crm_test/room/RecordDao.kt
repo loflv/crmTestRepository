@@ -9,16 +9,16 @@ import androidx.room.Update
 interface RecordDao {
 
     @Insert
-    fun insertRecord(vararg bean: RecordRoomBean)
+    suspend fun insertRecord(vararg bean: RecordRoomBean)
 
 
     @Query("select * from RecordRoomBean where id = :selectId")
-    fun findRecordById(selectId: Long): RecordRoomBean
+    suspend fun findRecordById(selectId: Long): RecordRoomBean
 
     @Update
-    fun updateRecord(bean: RecordRoomBean)
+    suspend fun updateRecord(bean: RecordRoomBean)
 
 
     @Query("select * from RecordRoomBean")
-    fun findAllRecord(): List<RecordRoomBean>
+    suspend fun findAllRecord(): List<RecordRoomBean>
 }

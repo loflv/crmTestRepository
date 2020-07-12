@@ -1,10 +1,11 @@
-package com.example.crm_test
+package com.example.crm_test.UI.Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.crm_test.R
 
 /**
  * A simple [Fragment] subclass.

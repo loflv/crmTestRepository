@@ -9,7 +9,7 @@ data class RecordRoomBean(
     var title: String = "",
     var content: String = "",
     var workContent: String = "",
-    var readAble: Boolean = false
+    var readAble: Boolean = false  //是否已读
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
