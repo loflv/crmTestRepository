@@ -9,4 +9,8 @@ class MainViewModel : BaseViewModel() {
         "login",
         Context.MODE_PRIVATE
     ).getLong("passport_id", 0)
+
+    var userName: String =
+        MyApplication.mContext.getSharedPreferences("login", Context.MODE_PRIVATE)
+            .getString("accountName", "")!!
 }

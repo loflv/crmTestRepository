@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Crm_test-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Crm_test-app.iml" group="Crm_test/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/164528614/app.iml" filepath="$PROJECT_DIR$/.idea/modules/164528614/app.iml" group="Crm_test/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/crmTestRepository-Crm_test.iml" filepath="$PROJECT_DIR$/.idea/modules/crmTestRepository-Crm_test.iml" group="Crm_test" />
     </modules>
