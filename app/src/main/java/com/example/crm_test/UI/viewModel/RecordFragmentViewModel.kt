@@ -12,7 +12,11 @@ class RecordFragmentViewModel : BaseViewModel() {
      * 最后一个记录的id
      */
     var lastRecordId: Long? = null
-    var number = 0
+    var number: MutableLiveData<Int> = MutableLiveData()
+
+    init {
+        number.value = 0
+    }
 
     var listLiveData: MutableLiveData<MutableList<PostMesList.BodyBean.NoticesBean>> =
         MutableLiveData()
@@ -39,7 +43,7 @@ class RecordFragmentViewModel : BaseViewModel() {
 
     fun loadMes(userId: String) {
         val retrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
-        if (number > 3) {
+        if (number.value!! > 3) {
             return
         }
         launch {
@@ -59,12 +63,12 @@ class RecordFragmentViewModel : BaseViewModel() {
             }
 
             if (filter?.size == 0 && hasMore) {
-                number++
+                number.value = number.value!! + 1
                 loadMes(userId)
                 return@launch
             }
 
-            number = 0
+            number.value = 0
 
             //过滤重复提交
 //            val list: MutableList<PostMesList.BodyBean.NoticesBean> = mutableListOf()

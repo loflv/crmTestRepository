@@ -46,7 +46,6 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
     override fun initView() {
         my_recycler.adapter =
             RecordAdapter(
-                mFragmentViewModel,
                 mFragmentViewModel.getList(),
                 { initData() },
                 { i, recordId, id ->
@@ -81,6 +80,13 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         super.startObserve()
         mFragmentViewModel.recyclerListSize.observe(this, Observer {
             my_recycler.adapter!!.notifyDataSetChanged()
+        })
+
+        mFragmentViewModel.number.observe(this, Observer {
+            if (it > 3) {
+                val recordAdapter = my_recycler.adapter as RecordAdapter
+                recordAdapter.hideFootViewHolder()
+            }
         })
     }
 }

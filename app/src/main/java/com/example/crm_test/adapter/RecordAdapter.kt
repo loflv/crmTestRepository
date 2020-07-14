@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.GONE
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.crm_test.R
 import com.example.crm_test.UI.viewModel.RecordFragmentViewModel
@@ -13,7 +14,6 @@ import com.example.crm_test.bean.PostMesList
 import java.text.SimpleDateFormat
 
 class RecordAdapter(
-    val viewMode: RecordFragmentViewModel,
     var mList: List<PostMesList.BodyBean.NoticesBean>,
     val loadingMore: () -> Unit,
     val callback: (Int, Long, Long) -> Unit
@@ -40,6 +40,8 @@ class RecordAdapter(
         const val NORMAL_TYPE = 0
     }
 
+    var footViewHolder: FootViewHolder? = null
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         if (holder is MyViewHolder) {
@@ -50,12 +52,16 @@ class RecordAdapter(
             }
         } else if (holder is FootViewHolder) {
 
+            footViewHolder = holder
             if (mList.isNotEmpty()) {
                 loadingMore()
-                holder.view.visibility = View.GONE
             }
         }
 
+    }
+
+    fun hideFootViewHolder(){
+        footViewHolder?.view?.visibility = GONE
     }
 
     override fun getItemCount(): Int {
