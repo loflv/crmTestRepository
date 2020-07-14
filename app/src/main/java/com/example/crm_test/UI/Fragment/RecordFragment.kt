@@ -33,9 +33,6 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
 
 
     override fun initData() {
-        if (mFragmentViewModel.number > 3) {
-            return
-        }
         val mainActivity = requireActivity() as MainActivity
         mFragmentViewModel.loadMes(mainActivity.baseViewModel.userId.toString())
 
@@ -45,12 +42,18 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         return R.layout.fragment_record
     }
 
+
     override fun initView() {
-        my_recycler.adapter = RecordAdapter(mFragmentViewModel.getList()) { i, recordId, id ->
-            val intent =
-                RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
-            startActivityForResult(intent, i)
-        }
+        my_recycler.adapter =
+            RecordAdapter(
+                mFragmentViewModel,
+                mFragmentViewModel.getList(),
+                { initData() },
+                { i, recordId, id ->
+                    val intent =
+                        RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
+                    startActivityForResult(intent, i)
+                })
 
         my_recycler.layoutManager = LinearLayoutManager(requireActivity())
         my_recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {

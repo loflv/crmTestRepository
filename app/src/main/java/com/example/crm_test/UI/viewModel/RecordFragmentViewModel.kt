@@ -39,7 +39,9 @@ class RecordFragmentViewModel : BaseViewModel() {
 
     fun loadMes(userId: String) {
         val retrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
-
+        if (number > 3) {
+            return
+        }
         launch {
 
             val t = retrofitService.getRecord(userId, lastRecordId, "2006.2")
