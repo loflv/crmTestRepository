@@ -1,5 +1,6 @@
 package com.example.crm_test.api
 
+import com.example.crm_test.base.OtherReply
 import com.example.crm_test.bean.*
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -78,4 +79,12 @@ interface CrmApi {
         @Field("password") password: String?,
         @Field("login_type") login_type: String?
     ): LoginBean
+
+    @GET("comment/list.action")
+    suspend fun getOtherReply(
+        @Query("systemItemId") systemItemId: String?,
+        @Query("systemId") systemId: String?,
+        @Query("cache_key") cache_key: String?,
+        @Query("_vs") _vs: String?
+    ): OtherReply
 }

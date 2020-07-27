@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.crm_test.MyApplication
 import com.example.crm_test.api.CrmApi
 import com.example.crm_test.base.BaseViewModel
+import com.example.crm_test.base.OtherReply
 import com.example.crm_test.bean.PostMesBean
 import com.example.crm_test.room.RecordDatabase
 import com.example.crm_test.room.RecordRoomBean
@@ -17,6 +18,17 @@ class RecordDetailViewModel : BaseViewModel() {
     lateinit var id: String
     lateinit var text1_content: String
     lateinit var text2_content: String
+
+    var reReplyList = mutableListOf<OtherReply.BodyBean.CommentsBean>()
+        private set
+
+    var postReplyListSize: MutableLiveData<Int> =
+        MutableLiveData()
+        private set
+
+    init {
+        postReplyListSize.value = 0
+    }
 
     var postMesBeanLiveData: MutableLiveData<PostMesBean> = MutableLiveData()
 
@@ -77,6 +89,16 @@ class RecordDetailViewModel : BaseViewModel() {
             text1_content = recordDetail.body?.report?.content!!.replace("\r", "\n")
             text2_content = recordDetail.body?.report?.plan!!.replace("\r", "\n")
             postMesBeanLiveData.value = recordDetail
+
+            val otherReply = NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getOtherReply(
+                passport_id, "601", id, "2006.2"
+            )
+
+            otherReply.body?.comments?.let {
+                reReplyList.addAll(it)
+                postReplyListSize.value = reReplyList.size
+            }
+
         }
     }
 

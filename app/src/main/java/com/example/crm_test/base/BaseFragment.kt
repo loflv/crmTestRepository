@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.orhanobut.logger.Logger
 
+
 abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     lateinit var mFragmentViewModel: VM
@@ -39,7 +40,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
     abstract fun getViewModelClass(): Class<VM>
 
     open fun startObserve() {
-        mFragmentViewModel.errorLiveData.observe(this, Observer {
+        mFragmentViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
             onError(it)
         })
     }

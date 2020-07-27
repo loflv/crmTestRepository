@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crm_test.R
 import com.example.crm_test.UI.viewModel.RecordDetailViewModel
+import com.example.crm_test.adapter.OtherReplayAdapter
 import com.example.crm_test.base.BaseActivity
 import com.example.crm_test.room.RecordRoomBean
 import kotlinx.android.synthetic.main.activity_record_detail.*
@@ -70,6 +72,9 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
         baseViewModel.passport_id = intent.getLongExtra("passport_id", 0).toString()
         baseViewModel.id = intent.getLongExtra("id", 0).toString()
         baseViewModel.initData()
+
+        otherReplyRecycler.layoutManager = LinearLayoutManager(this)
+        otherReplyRecycler.adapter = OtherReplayAdapter(baseViewModel.reReplyList)
     }
 
     override fun startObserve() {
@@ -83,6 +88,10 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
         baseViewModel.postMesBeanLiveData.observe(this, Observer {
             text1_content.text = baseViewModel.text1_content
             text2_content.text = baseViewModel.text2_content
+        })
+
+        baseViewModel.postReplyListSize.observe(this, Observer {
+            otherReplyRecycler.adapter!!.notifyDataSetChanged()
         })
 
     }
