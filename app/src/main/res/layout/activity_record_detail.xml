@@ -105,15 +105,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:text="标记为已读：某人重复提交时，无需重复发送\n收藏的记录可以在收集中查约" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/otherReplyRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp" />
             </LinearLayout>
         </ScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/otherReplyRecycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

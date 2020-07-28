@@ -1,5 +1,6 @@
 package com.example.crm_test.UI.viewModel
 
+import android.content.SharedPreferences
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
@@ -49,6 +50,7 @@ class LoginViewModel : BaseViewModel() {
             }
 
             //保存信息 todo
+
             SharedPreferencesRepository.putContent {
                 putLong("passport_id", login.result!!.passport_id)
                 apply()

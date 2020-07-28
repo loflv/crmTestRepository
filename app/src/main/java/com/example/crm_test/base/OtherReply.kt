@@ -67,7 +67,7 @@ class OtherReply {
                  * prefix : 王庆
                  * post : 产品运营中心总监
                  */
-                var uid = 0
+                var uid: Long = 0
                 var name: String? = null
                 var icon: String? = null
                 var type = 0
