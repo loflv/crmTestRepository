@@ -1,16 +1,17 @@
 package com.example.crm_test.UI.Fragment
 
 import android.content.Intent
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.crm_test.R
 import com.example.crm_test.UI.activity.MainActivity
 import com.example.crm_test.UI.activity.RecordDetailActivity
 import com.example.crm_test.UI.viewModel.RecordFragmentViewModel
-import com.example.crm_test.adapter.RecordAdapter
 import com.example.crm_test.base.BaseFragment
+import com.example.crm_test.pading.PagingAdapter
 import kotlinx.android.synthetic.main.fragment_record.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * 其他人提交的记录
@@ -34,7 +35,12 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
 
     override fun initData() {
         val mainActivity = requireActivity() as MainActivity
-        mFragmentViewModel.loadMes(mainActivity.baseViewModel.userId.toString())
+        lifecycleScope.launch {
+            mFragmentViewModel.loadMes(mainActivity.baseViewModel.userId.toString()).collectLatest {
+                adapter.submitData(it)
+            }
+        }
+
 
     }
 
@@ -42,19 +48,36 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         return R.layout.fragment_record
     }
 
+    private val adapter: PagingAdapter by lazy {
+        PagingAdapter()
+        { i, recordId, id ->
+            val intent =
+                RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
+            startActivityForResult(intent, i)
+        }
+    }
+
 
     override fun initView() {
-        my_recycler.adapter =
-            RecordAdapter(
-                mFragmentViewModel.getList(),
-                { initData() },
-                { i, recordId, id ->
-                    val intent =
-                        RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
-                    startActivityForResult(intent, i)
-                })
-
         my_recycler.layoutManager = LinearLayoutManager(requireActivity())
+        my_recycler.adapter = adapter
+/*        my_recycler.adapter = PagingAdapter()
+        { i, recordId, id ->
+            val intent =
+                RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
+            startActivityForResult(intent, i)
+        }*/
+
+        /*RecordAdapter(
+            mFragmentViewModel.getList(),
+            { initData() },
+            { i, recordId, id ->
+                val intent =
+                    RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
+                startActivityForResult(intent, i)
+            })*/
+
+        /*my_recycler.layoutManager = LinearLayoutManager(requireActivity())
         my_recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -66,7 +89,7 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
                 }
             }
         })
-
+*/
         swipeRefresh.setOnRefreshListener {
             swipeRefresh.isRefreshing = false
         }
@@ -78,16 +101,16 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
 
     override fun startObserve() {
         super.startObserve()
-        mFragmentViewModel.recyclerListSize.observe(this, Observer {
-            my_recycler.adapter!!.notifyDataSetChanged()
-        })
+//        mFragmentViewModel.recyclerListSize.observe(this, Observer {
+//            my_recycler.adapter!!.notifyDataSetChanged()
+//        })
 
-        mFragmentViewModel.number.observe(this, Observer {
-            if (it > 3) {
-                val recordAdapter = my_recycler.adapter as RecordAdapter
-                recordAdapter.hideFootViewHolder()
-            }
-        })
+//        mFragmentViewModel.number.observe(this, Observer {
+//            if (it > 3) {
+//                val recordAdapter = my_recycler.adapter as RecordAdapter
+//                recordAdapter.hideFootViewHolder()
+//            }
+//        })
     }
 }
 

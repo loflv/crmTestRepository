@@ -1,10 +1,13 @@
 package com.example.crm_test.UI.viewModel
 
 import androidx.lifecycle.MutableLiveData
-import com.example.crm_test.api.CrmApi
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.example.crm_test.base.BaseViewModel
 import com.example.crm_test.bean.PostMesList
-import com.example.crm_test.util.NetWorkUtils
+import com.example.crm_test.pading.RecordDataSource
 
 class RecordFragmentViewModel : BaseViewModel() {
 
@@ -41,11 +44,13 @@ class RecordFragmentViewModel : BaseViewModel() {
         return listLiveData.value!!
     }
 
-    fun loadMes(userId: String) {
+    suspend fun loadMes(userId: String) = Pager(PagingConfig(20)) {
+        RecordDataSource(userId)
+    }.flow.cachedIn(viewModelScope)
+
+    /*{
         val retrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
-        if (number.value!! > 3) {
-            return
-        }
+
         launch {
 
             val t = retrofitService.getRecord(userId, lastRecordId, "2006.2")
@@ -78,8 +83,8 @@ class RecordFragmentViewModel : BaseViewModel() {
 //                }
 //            }
             addList(filter!!)
-        }
+        }*/
 
 
-    }
+//}
 }
