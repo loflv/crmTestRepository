@@ -2,6 +2,7 @@ package com.example.crm_test.UI.Fragment
 
 import android.content.Intent
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crm_test.R
 import com.example.crm_test.UI.activity.MainActivity
@@ -61,6 +62,13 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
     override fun initView() {
         my_recycler.layoutManager = LinearLayoutManager(requireActivity())
         my_recycler.adapter = adapter
+
+        adapter.addLoadStateListener {
+            if (it.append is LoadState.NotLoading) {
+                wait_read_text.text = "无需要审阅的项目"
+            }
+
+        }
 /*        my_recycler.adapter = PagingAdapter()
         { i, recordId, id ->
             val intent =
