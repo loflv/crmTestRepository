@@ -8,6 +8,7 @@ import com.example.crm_test.MyApplication
 import com.example.crm_test.R
 import com.example.crm_test.UI.viewModel.MainViewModel
 import com.example.crm_test.base.BaseActivity
+import com.example.crm_test.util.CrashHandler
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainViewModel>() {
@@ -32,6 +33,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     override fun initData() {
+        CrashHandler(this)
         isLogin()
     }
 
