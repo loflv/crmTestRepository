@@ -1,24 +1,26 @@
 package com.example.crm_test.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.paging.PagingSource
+import androidx.room.*
 
 @Dao
 interface RecordDao {
 
     @Insert
-    suspend fun insertRecord(vararg bean: RecordRoomBean)
+    fun insertRecord(vararg bean: RecordRoomBean)
 
 
     @Query("select * from RecordRoomBean where id = :selectId")
     suspend fun findRecordById(selectId: Long): RecordRoomBean
 
     @Update
-    suspend fun updateRecord(bean: RecordRoomBean)
+    fun updateRecord(bean: RecordRoomBean)
 
 
-    @Query("select * from RecordRoomBean")
-    suspend fun findAllRecord(): List<RecordRoomBean>
+    @Query("SELECT * FROM RecordRoomBean ORDER BY name COLLATE NOCASE ASC")
+    fun findAllRecord(): PagingSource<Int, RecordRoomBean>
+
+
+    @Delete
+    suspend fun delete(bean: RecordRoomBean)
 }

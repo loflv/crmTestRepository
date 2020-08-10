@@ -1,9 +1,13 @@
 package com.example.crm_test.UI.viewModel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.crm_test.base.BaseViewModel
 import com.example.crm_test.room.RecordDatabase
 import com.example.crm_test.room.RecordRoomBean
+import kotlinx.coroutines.launch
 
 class CollectionRecordViewModel : BaseViewModel() {
 
@@ -18,11 +22,17 @@ class CollectionRecordViewModel : BaseViewModel() {
         return listData.value!!
     }
 
-    fun findAll() {
-        launch {
-            val findAllRecord = RecordDatabase.recordDb!!.recordDao.findAllRecord()
-            listData.value!!.addAll(findAllRecord.filter { !it.readAble })
-            listDataSize.value = listData.value!!.size
-        }
+    fun remove(room: RecordRoomBean) = viewModelScope.launch {
+        RecordDatabase.get().recordDao().delete(room)
     }
+
+    val allCheeses = Pager(
+        PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = true
+        )
+    ) {
+        RecordDatabase.get().recordDao().findAllRecord()
+    }.flow
+
 }

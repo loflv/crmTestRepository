@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import android.os.Environment
-import com.orhanobut.logger.Logger
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -29,7 +28,6 @@ class CrashHandler(val context: Activity) : Thread.UncaughtExceptionHandler {
 
     @SuppressLint("SimpleDateFormat")
     private fun dumpExceptionToSDCard(e: Throwable) {
-        Logger.d("重启了")
         val externalFilesDir =
             context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.absolutePath
         val currentTime = System.currentTimeMillis()

@@ -44,47 +44,8 @@ class RecordFragmentViewModel : BaseViewModel() {
         return listLiveData.value!!
     }
 
-    suspend fun loadMes(userId: String) = Pager(PagingConfig(20)) {
+    fun loadMes(userId: String) = Pager(PagingConfig(3)) {
         RecordDataSource(userId)
     }.flow.cachedIn(viewModelScope)
 
-    /*{
-        val retrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
-
-        launch {
-
-            val t = retrofitService.getRecord(userId, lastRecordId, "2006.2")
-            var hasMore = t.body?.hasMore
-            lastRecordId = t.body?.notices?.last()?.id
-
-            //过滤出已读提交的数据
-            val filter = t.body?.notices?.filter {
-                it.content!!.contains("提交")
-                        && it.status == 0
-            }
-
-            if (hasMore == null) {
-                hasMore = false
-            }
-
-            if (filter?.size == 0 && hasMore) {
-                number.value = number.value!! + 1
-                loadMes(userId)
-                return@launch
-            }
-
-            number.value = 0
-
-            //过滤重复提交
-//            val list: MutableList<PostMesList.BodyBean.NoticesBean> = mutableListOf()
-//            filter?.forEach { mes ->
-//                if (list.all { contont -> contont.operate != mes.operate }) {
-//                    list.add(mes)
-//                }
-//            }
-            addList(filter!!)
-        }*/
-
-
-//}
 }

@@ -12,15 +12,15 @@ class CollectionDetailViewModel : BaseViewModel() {
 
     var recordRoomBeanLiveData: MutableLiveData<RecordRoomBean> = MutableLiveData()
 
-    var readLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    var dealLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
-        readLiveData.value = false
+        dealLiveData.value = false
     }
 
     fun findRecordById() {
         launch {
-            val bean = RecordDatabase.recordDb!!.recordDao.findRecordById(recordBeanId)
+            val bean = RecordDatabase.get().recordDao().findRecordById(recordBeanId)
             text1_content = bean.content
             text2_content = bean.workContent
             recordRoomBeanLiveData.value = bean
@@ -32,11 +32,9 @@ class CollectionDetailViewModel : BaseViewModel() {
             return
         }
 
-        recordRoomBeanLiveData.value!!.readAble = true
-
         launch {
-            RecordDatabase.recordDb!!.recordDao.updateRecord(recordRoomBeanLiveData.value!!)
-            readLiveData.value = true
+            RecordDatabase.get().recordDao().delete(recordRoomBeanLiveData.value!!)
+            dealLiveData.value = true
         }
     }
 }

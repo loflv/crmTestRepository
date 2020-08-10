@@ -48,7 +48,7 @@ class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
             text2_content.text = it.workContent
         })
 
-        baseViewModel.readLiveData.observe(this, Observer {
+        baseViewModel.dealLiveData.observe(this, Observer {
             if (it) {
                 removeButton.visibility = View.GONE
                 Toast.makeText(this, "删除成功", Toast.LENGTH_LONG).show()
@@ -56,16 +56,4 @@ class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
         })
     }
 
-
-    override fun onBackPressed() {
-
-        val readAble = baseViewModel.readLiveData.value!!
-        val result = if (readAble) {
-            1
-        } else {
-            0
-        }
-        setResult(result)
-        finish()
-    }
 }

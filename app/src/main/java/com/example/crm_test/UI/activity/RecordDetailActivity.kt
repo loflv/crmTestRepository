@@ -10,6 +10,7 @@ import com.example.crm_test.UI.viewModel.RecordDetailViewModel
 import com.example.crm_test.adapter.OtherReplayAdapter
 import com.example.crm_test.base.BaseActivity
 import com.example.crm_test.room.RecordRoomBean
+import com.example.crm_test.util.ioThread
 import kotlinx.android.synthetic.main.activity_record_detail.*
 
 
@@ -53,13 +54,15 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
                 return@setOnClickListener
             }
             val recordRoomBean = RecordRoomBean(
+                0,
                 baseViewModel.postMesBeanLiveData.value!!.body?.report?.user?.name!!,
                 "日报",
                 text1_content.text.toString(),
                 text2_content.text.toString()
             )
-
-            baseViewModel.insertDatabase(recordRoomBean)
+            ioThread {
+                baseViewModel.insertDatabase(recordRoomBean)
+            }
         }
 
         signRead.setOnClickListener {

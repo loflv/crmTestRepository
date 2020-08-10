@@ -10,6 +10,7 @@ import com.example.crm_test.bean.PostMesBean
 import com.example.crm_test.room.RecordDatabase
 import com.example.crm_test.room.RecordRoomBean
 import com.example.crm_test.util.NetWorkUtils
+import com.example.crm_test.util.ioThread
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -103,8 +104,8 @@ class RecordDetailViewModel : BaseViewModel() {
     }
 
     fun insertDatabase(recordRoomBean: RecordRoomBean) {
-        launch {
-            RecordDatabase.recordDb!!.recordDao.insertRecord(recordRoomBean)
-        }
+       ioThread {
+           RecordDatabase.get().recordDao().insertRecord(recordRoomBean)
+       }
     }
 }

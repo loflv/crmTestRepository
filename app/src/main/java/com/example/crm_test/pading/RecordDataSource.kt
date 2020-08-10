@@ -18,28 +18,35 @@ class RecordDataSource(val userId: String) :
             params.key
         }
 
-        if (emptyTime > 3) {
-            key = null
-        }
 
         val record = retrofitService.getRecord(userId, key, "2006.2")
 
         return LoadResult.Page(
             //需要加载的数据
-            data = record.body!!.notices!!.filter {
-                it.content!!.contains("提交")
-                        && it.status == 0
-            }.apply {
-                if (this.size == 0) {
-                    emptyTime++
-                } else {
-                    emptyTime = 0
+            data = record.body!!.notices!!
+                .filterIndexed { i, bean ->
+                    // if (value.data.isEmpty()) NotLoading.Complete else NotLoading.Incomplete
+                    //好蠢
+                    i == 1 || (bean.content!!.contains("提交")
+                            && bean.status == 0)
+
                 }
-            },
+                .apply {
+                    if (this.size < 2) {
+                        emptyTime++
+                    } else {
+                        emptyTime = 0
+                    }
+                },
             //如果可以往上加载更多就设置该参数，否则不设置
             prevKey = null,
             //加载下一页的key 如果传null就说明到底了
-            nextKey = record.body?.notices?.lastOrNull()?.id
+            nextKey =
+            if (emptyTime > 3) {
+                null
+            } else {
+                record.body?.notices?.lastOrNull()?.id
+            }
         )
     }
 
