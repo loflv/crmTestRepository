@@ -27,18 +27,17 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
             return
         }
 
-        mFragmentViewModel.getList().removeAt(requestCode)
-        my_recycler.adapter?.notifyItemRemoved(requestCode)
-        my_recycler.adapter?.notifyItemRangeChanged(requestCode, mFragmentViewModel.getList().size)
+        adapterRecord.notifyItemRemoved(requestCode)
     }
 
 
     override fun initData() {
         val mainActivity = requireActivity() as MainActivity
         lifecycleScope.launch {
-            mFragmentViewModel.loadMes(mainActivity.baseViewModel.userId.toString()).collectLatest {
-                adapterRecord.submitData(it)
-            }
+            mFragmentViewModel.loadMes(mainActivity.baseViewModel.userId.toString())
+                .collectLatest {
+                    adapterRecord.submitData(it)
+                }
         }
     }
 

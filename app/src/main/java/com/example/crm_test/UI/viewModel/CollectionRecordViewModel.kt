@@ -14,6 +14,11 @@ class CollectionRecordViewModel : BaseViewModel() {
     var listData = MutableLiveData<MutableList<RecordRoomBean>>()
     val listDataSize: MutableLiveData<Int> = MutableLiveData()
 
+    /**
+     * dao 必须是一个才能刷新
+     */
+    private val dao = RecordDatabase.get().recordDao()
+
     init {
         listData.value = mutableListOf()
     }
@@ -23,16 +28,16 @@ class CollectionRecordViewModel : BaseViewModel() {
     }
 
     fun remove(room: RecordRoomBean) = viewModelScope.launch {
-        RecordDatabase.get().recordDao().delete(room)
+        dao.delete(room)
     }
 
     val allCheeses = Pager(
         PagingConfig(
             pageSize = 10,
-            enablePlaceholders = true
+            enablePlaceholders = false
         )
     ) {
-        RecordDatabase.get().recordDao().findAllRecord()
+        dao.findAllRecord()
     }.flow
 
 }

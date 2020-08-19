@@ -1,6 +1,7 @@
 package com.example.crm_test.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,9 @@ class OtherReplayAdapter(val list: MutableList<OtherReply.BodyBean.CommentsBean>
 
         //干掉已阅
         if (list[position].content.equals("已阅") && position > 1) {
+            holder.binding.userName.visibility = View.GONE
+            holder.binding.time.visibility = View.GONE
+            holder.binding.content.visibility = View.GONE
             return
         }
 

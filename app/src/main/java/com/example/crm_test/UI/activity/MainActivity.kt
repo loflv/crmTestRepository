@@ -46,7 +46,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
             Context.MODE_PRIVATE
         ).getString("x-ienterprise-passport", "")
 
-        if (cookie!!.isNullOrBlank()) {
+        if (cookie!!.isBlank()) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()

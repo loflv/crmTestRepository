@@ -30,6 +30,7 @@ class CollcectionPaggingAdater(val callback: (Int, Long) -> Unit) :
         holder.bindingUtil.container.setOnClickListener {
             callback(position, item!!.id)
         }
+        holder.bindingUtil.executePendingBindings()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColleactionViewHolder {

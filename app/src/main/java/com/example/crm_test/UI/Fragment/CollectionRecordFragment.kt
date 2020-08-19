@@ -22,6 +22,8 @@ import kotlinx.coroutines.launch
  */
 class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
 
+
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_collection_record
     }
@@ -56,6 +58,7 @@ class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
                     mFragmentViewModel.remove(it)
                 }
             }
+
         }).attachToRecyclerView(record_recycler)
 
 
