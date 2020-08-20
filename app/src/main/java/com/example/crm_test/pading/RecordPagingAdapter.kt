@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -35,11 +36,21 @@ class RecordPagingAdapter(val callback: (Int, Long, Long) -> Unit) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RecordPagingAdapter.MyViewHolder) {
             val item = getItem(position)
+            //过滤 提交已读的
+            if (!(item?.content!!.contains("提交") && item.status == 0)) {
+                val layoutParams = holder.mContent.layoutParams
+                layoutParams.height = 0
+                holder.mContent.layoutParams = layoutParams
+                return
+            } else {
+                val layoutParams = holder.mContent.layoutParams
+                layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+                holder.mContent.layoutParams = layoutParams
+            }
 
-            holder.mName.text =
-                SimpleDateFormat("MM/dd HH:mm :  ").format(item?.created) + item?.user!!.name + item?.content
+            holder.mName.text = item.user?.name + item?.content
             holder.mContent.setOnClickListener {
-                callback(position, item.operate, item.id)
+                callback(position, item!!.operate, item.id)
             }
         }
     }

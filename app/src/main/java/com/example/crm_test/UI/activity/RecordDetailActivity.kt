@@ -77,7 +77,7 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
         baseViewModel.initData()
 
         otherReplyRecycler.layoutManager = LinearLayoutManager(this)
-        otherReplyRecycler.adapter = OtherReplayAdapter(baseViewModel.reReplyList)
+        otherReplyRecycler.adapter = OtherReplayAdapter(baseViewModel.reReplyList,baseViewModel.id)
     }
 
     override fun startObserve() {

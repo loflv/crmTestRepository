@@ -10,7 +10,10 @@ import com.example.crm_test.base.OtherReply
 import com.example.crm_test.databinding.RecyclterItemOtherReplayBinding
 import java.text.SimpleDateFormat
 
-class OtherReplayAdapter(val list: MutableList<OtherReply.BodyBean.CommentsBean>) :
+class OtherReplayAdapter(
+    val list: MutableList<OtherReply.BodyBean.CommentsBean>,
+    val id: String
+) :
     RecyclerView.Adapter<OtherReplayAdapter.OtherReplyAdapter>() {
 
     class OtherReplyAdapter(val binding: RecyclterItemOtherReplayBinding) :
@@ -33,7 +36,7 @@ class OtherReplayAdapter(val list: MutableList<OtherReply.BodyBean.CommentsBean>
     override fun onBindViewHolder(holder: OtherReplyAdapter, position: Int) {
 
         //干掉已阅
-        if (list[position].content.equals("已阅") && position > 1) {
+        if (list[position].content.equals("已阅") && position > 1 && list[position].id != id.toLong()) {
             holder.binding.userName.visibility = View.GONE
             holder.binding.time.visibility = View.GONE
             holder.binding.content.visibility = View.GONE
@@ -43,7 +46,6 @@ class OtherReplayAdapter(val list: MutableList<OtherReply.BodyBean.CommentsBean>
         holder.binding.time.text = SimpleDateFormat("HH:mm:ss").format(list[position].date)
         holder.binding.userName.text = list[position].user?.name
         holder.binding.content.text = list[position].content
-//           Glide.with(holder.binding.imageView.context).load(list[position].)
 
     }
 }

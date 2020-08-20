@@ -28,7 +28,7 @@ class RecordDataSource(val userId: String) :
                     // if (value.data.isEmpty()) NotLoading.Complete else NotLoading.Incomplete
                     //好蠢
                     i == 1 || (bean.content!!.contains("提交")
-                            && bean.status == 1)
+                            && bean.status == 0)
 
                 }
                 .apply {
