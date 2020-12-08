@@ -31,7 +31,7 @@ class LoginViewModel : BaseViewModel() {
             val retrofit = NetWorkUtils.createRetrofitService(CrmApi::class.java, false)
             //获取key
             retrofit1.mainIndex(
-                "https://crm.xiaoshouyi.com/mobile/auc/loginSupport.action?&os=28&_vs=2006.2" +
+                "https://crm.xiaoshouyi.com/mobile/auc/loginSupport.action?&os=28&_vs=2010.7" +
                         "&imei=865472047803957&app_type=0&login_type=mobile&source=1&model=HUAWEI%20HWJKM-H"
             )
             //登录

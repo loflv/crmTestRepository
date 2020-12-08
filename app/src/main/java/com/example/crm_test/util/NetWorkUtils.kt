@@ -157,7 +157,7 @@ object NetWorkUtils {
             })
             .addInterceptor(interceptor)
         val client = builder.build()
-        val retrofit = Retrofit.Builder().baseUrl("https://crm.xiaoshouyi.com/mobile/")
+        val retrofit = Retrofit.Builder().baseUrl("https://crm-p05.xiaoshouyi.com/mobile/")
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())

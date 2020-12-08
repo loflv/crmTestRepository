@@ -46,7 +46,7 @@ class RecordDetailViewModel : BaseViewModel() {
                 passport_id,
                 "601",
                 id,
-                "2006.2",
+                "2010.7",
                 "已阅".toRequestBody("text/plain".toMediaType()),
                 "1".toRequestBody("text/plain".toMediaType())
             )
@@ -57,7 +57,7 @@ class RecordDetailViewModel : BaseViewModel() {
                 "1",
                 id,
                 "1213283083206995",
-                "2006.2"
+                "2010.7"
             )
 
             Toast.makeText(MyApplication.mContext, "发送成功", Toast.LENGTH_SHORT).show()
@@ -74,7 +74,7 @@ class RecordDetailViewModel : BaseViewModel() {
                 "1",
                 id,
                 "1213283083206995",
-                "2006.2"
+                "2010.7"
             )
             Toast.makeText(MyApplication.mContext, "发送成功", Toast.LENGTH_SHORT).show()
         }
@@ -85,14 +85,14 @@ class RecordDetailViewModel : BaseViewModel() {
             val recordDetail =
                 NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getRecordDetail(
                     passport_id,
-                    id, "2006.2"
+                    id, "2010.7"
                 )
             text1_content = recordDetail.body?.report?.content!!.replace("\r", "\n")
             text2_content = recordDetail.body?.report?.plan!!.replace("\r", "\n")
             postMesBeanLiveData.value = recordDetail
 
             val otherReply = NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getOtherReply(
-                passport_id, "601", id, "2006.2"
+                passport_id, "601", id, "2010.7"
             )
 
             otherReply.body?.comments?.let {
