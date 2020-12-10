@@ -44,7 +44,7 @@ class RecordDataSource(val userId: String) :
                 prevKey = null,
                 //加载下一页的key 如果传null就说明到底了
                 nextKey =
-                if (emptyTime > 3) {
+                if (emptyTime > 5) {
                     null
                 } else {
                     record.body?.notices?.lastOrNull()?.id

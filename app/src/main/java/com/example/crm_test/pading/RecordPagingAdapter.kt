@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crm_test.R
 import com.example.crm_test.bean.PostMesList
+import com.orhanobut.logger.Logger
 import java.text.SimpleDateFormat
 
-class RecordPagingAdapter(val callback: (Int, Long, Long) -> Unit) :
+class RecordPagingAdapter(val callback: (Int, Long, PostMesList.BodyBean.NoticesBean) -> Unit) :
     PagingDataAdapter<PostMesList.BodyBean.NoticesBean,
             RecyclerView.ViewHolder>(object :
         DiffUtil.ItemCallback<PostMesList.BodyBean.NoticesBean>() {
@@ -50,7 +51,8 @@ class RecordPagingAdapter(val callback: (Int, Long, Long) -> Unit) :
 
             holder.mName.text = item.user?.name + item?.content
             holder.mContent.setOnClickListener {
-                callback(position, item!!.operate, item.id)
+                Logger.d("点击了$position")
+                callback(position, item!!.operate, item)
             }
         }
     }

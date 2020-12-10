@@ -9,6 +9,7 @@ import com.example.crm_test.UI.activity.MainActivity
 import com.example.crm_test.UI.activity.RecordDetailActivity
 import com.example.crm_test.UI.viewModel.RecordFragmentViewModel
 import com.example.crm_test.base.BaseFragment
+import com.example.crm_test.bean.PostMesList
 import com.example.crm_test.pading.RecordPagingAdapter
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.fragment_record.view.*
@@ -30,7 +31,10 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
             return
         }
 
-        adapterRecord.notifyItemRemoved(requestCode)
+        chooseBean?.status = 1
+        adapterRecord.notifyDataSetChanged()
+
+        //?? adapterRecord 的remove事件
     }
 
 
@@ -59,11 +63,13 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         return R.layout.fragment_record
     }
 
+    var chooseBean: PostMesList.BodyBean.NoticesBean? = null
     private val adapterRecord: RecordPagingAdapter by lazy {
         RecordPagingAdapter()
-        { i, recordId, id ->
+        { i, recordId, bean ->
+            chooseBean = bean
             val intent =
-                RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, id)
+                RecordDetailActivity.jumpToRecordDetail(requireActivity(), recordId, bean.id)
             startActivityForResult(intent, i)
         }
     }
