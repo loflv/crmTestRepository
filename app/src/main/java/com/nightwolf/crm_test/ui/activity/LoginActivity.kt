@@ -1,4 +1,4 @@
-package com.nightwolf.crm_test.UI.activity
+package com.nightwolf.crm_test.ui.activity
 
 
 import android.content.Context
@@ -8,13 +8,14 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.R
-import com.nightwolf.crm_test.UI.viewModel.LoginViewModel
 import com.nightwolf.crm_test.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import com.nightwolf.crm_test.databinding.ActivityLoginBinding
+import com.nightwolf.crm_test.ui.viewModel.LoginViewModel
 
 
 class LoginActivity : BaseActivity<LoginViewModel>() {
 
+    lateinit var binding: ActivityLoginBinding
     override fun getLayoutId(): Int {
         return R.layout.activity_login
     }
@@ -25,6 +26,8 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
 
     override fun initView() {
 
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
         clickEvent()
@@ -34,25 +37,27 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
      * 点击事件
      */
     private fun clickEvent() {
-        login.setOnClickListener {
-            baseViewModel.clickLogin(username.text.toString(), password.text.toString())
+        binding.login.setOnClickListener {
+            baseViewModel.clickLogin(
+                binding.username.text.toString(),
+                binding.password.text.toString()
+            )
         }
     }
-
 
 
     /**
      * 过期重新登录时
      */
     override fun initData() {
-        username.setText(
+        binding.username.setText(
             MyApplication.mContext.getSharedPreferences(
                 "login",
                 Context.MODE_PRIVATE
             ).getString("userName", "")
         )
 
-        password.setText(
+        binding.password.setText(
             MyApplication.mContext.getSharedPreferences(
                 "login",
                 Context.MODE_PRIVATE
@@ -63,15 +68,15 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
     override fun startObserve() {
         super.startObserve()
         baseViewModel.uiLiveData.observe(this, Observer {
-            loading.visibility = it.loadingVisible
-            login.isClickable = it.clickAble
+            binding.loading.visibility = it.loadingVisible
+            binding.login.isClickable = it.clickAble
         })
 
         baseViewModel.loginSuccess.observe(this, Observer {
             if (it) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                loading.visibility = View.GONE
+                binding.loading.visibility = View.GONE
                 finish()
             }
         })

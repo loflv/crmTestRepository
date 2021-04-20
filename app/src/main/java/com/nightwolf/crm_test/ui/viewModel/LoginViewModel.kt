@@ -1,16 +1,15 @@
-package com.nightwolf.crm_test.UI.viewModel
+package com.nightwolf.crm_test.ui.viewModel
 
-import android.content.SharedPreferences
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.base.BaseViewModel
 import com.nightwolf.crm_test.bean.LoginBean
 import com.nightwolf.crm_test.util.NetWorkUtils
 import com.nightwolf.crm_test.util.SharedPreferencesRepository
-import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 

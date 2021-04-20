@@ -1,29 +1,40 @@
-package com.nightwolf.crm_test.UI.Fragment
+package com.nightwolf.crm_test.ui.Fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.nightwolf.crm_test.R
-import com.nightwolf.crm_test.UI.activity.LoginActivity
-import com.nightwolf.crm_test.UI.activity.MainActivity
-import com.nightwolf.crm_test.UI.viewModel.LoginViewModel
 import com.nightwolf.crm_test.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_my.*
+import com.nightwolf.crm_test.databinding.FragmentMyBinding
+import com.nightwolf.crm_test.ui.activity.LoginActivity
+import com.nightwolf.crm_test.ui.activity.MainActivity
+import com.nightwolf.crm_test.ui.viewModel.LoginViewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class MyFragment : BaseFragment<LoginViewModel>() {
+
+    lateinit var binding: FragmentMyBinding
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMyBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_my
     }
 
     override fun initView() {
 
-        linear_login.setOnClickListener {
+        binding.linearLogin.setOnClickListener {
             val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
         }
@@ -31,7 +42,7 @@ class MyFragment : BaseFragment<LoginViewModel>() {
 
     override fun initData() {
         val mainActivity = requireActivity() as MainActivity
-        accountName.text = mainActivity.baseViewModel.userName
+        binding.accountName.text = mainActivity.baseViewModel.userName
     }
 
     override fun getViewModelClass(): Class<LoginViewModel> {

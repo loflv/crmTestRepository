@@ -10,7 +10,7 @@
         android:shortcutShortLabel="@string/title_activity_login">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.nightwolf.crm_test.UI.activity.LoginActivity"
+            android:targetClass="com.nightwolf.crm_test.ui.activity.LoginActivity"
             android:targetPackage="com.nightwolf.crm_test" />
 
     </shortcut>

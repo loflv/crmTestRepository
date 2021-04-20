@@ -1,17 +1,21 @@
-package com.nightwolf.crm_test.UI.Fragment
+package com.nightwolf.crm_test.ui.Fragment
 
 import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nightwolf.crm_test.R
-import com.nightwolf.crm_test.UI.activity.CollectionDetailActivity
-import com.nightwolf.crm_test.UI.viewModel.CollectionRecordViewModel
 import com.nightwolf.crm_test.base.BaseFragment
+import com.nightwolf.crm_test.databinding.FragmentCollectionRecordBinding
 import com.nightwolf.crm_test.pading.CollcectionPaggingAdater
-import kotlinx.android.synthetic.main.fragment_collection_record.*
+import com.nightwolf.crm_test.ui.activity.CollectionDetailActivity
+import com.nightwolf.crm_test.ui.viewModel.CollectionRecordViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,11 +27,20 @@ import kotlinx.coroutines.launch
 class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
 
 
+    lateinit var binding: FragmentCollectionRecordBinding
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_collection_record
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentCollectionRecordBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initView() {
 
@@ -36,8 +49,8 @@ class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
                 CollectionDetailActivity.jumpToCollectionDetail(requireContext(), id)
             startActivityForResult(intent, position)
         }
-        record_recycler.layoutManager = LinearLayoutManager(requireContext())
-        record_recycler.adapter = collcectionPaggingAdater
+        binding.recordRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recordRecycler.adapter = collcectionPaggingAdater
 
 
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -59,7 +72,7 @@ class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
                 }
             }
 
-        }).attachToRecyclerView(record_recycler)
+        }).attachToRecyclerView(binding.recordRecycler)
 
 
         lifecycleScope.launch {
@@ -80,7 +93,7 @@ class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
     override fun startObserve() {
         super.startObserve()
         mFragmentViewModel.listDataSize.observe(this, Observer {
-            record_recycler.adapter!!.notifyDataSetChanged()
+            binding.recordRecycler.adapter!!.notifyDataSetChanged()
         })
     }
 
@@ -91,8 +104,8 @@ class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
         }
 
         mFragmentViewModel.getList().removeAt(requestCode)
-        record_recycler.adapter?.notifyItemRemoved(requestCode)
-        record_recycler.adapter?.notifyItemRangeChanged(
+        binding.recordRecycler.adapter?.notifyItemRemoved(requestCode)
+        binding.recordRecycler.adapter?.notifyItemRangeChanged(
             requestCode,
             mFragmentViewModel.getList().size
         )

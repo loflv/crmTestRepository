@@ -2,6 +2,7 @@ package com.nightwolf.crm_test
 
 import android.app.Application
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
@@ -17,6 +18,16 @@ class MyApplication : Application() {
         Bugly.init(this, "1672ff150e", true)
         closeAndroidPDialog()
     }
+
+    fun isDebugApp(context: Context): Boolean {
+        try {
+            val info = context.applicationInfo
+            return info.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+        } catch (x: java.lang.Exception) {
+        }
+        return false
+    }
+
 
     /**
      * 初始化logger

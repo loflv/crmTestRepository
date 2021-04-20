@@ -17,8 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.nightwolf.crm_test.R
-
-import kotlinx.android.synthetic.main.basic_dialog_loading.*
+import com.nightwolf.crm_test.databinding.BasicDialogLoadingBinding
 
 /**
  * @author huanglinqing
@@ -27,9 +26,12 @@ import kotlinx.android.synthetic.main.basic_dialog_loading.*
  * @desc 等待加载 对话框
  */
 class LoadingDialog private constructor(mContext: Context) : Dialog(mContext), LifecycleObserver {
+
+    lateinit var basicDialogLoadingBinding: BasicDialogLoadingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.basic_dialog_loading)
+        basicDialogLoadingBinding = BasicDialogLoadingBinding.inflate(layoutInflater)
+        setContentView(basicDialogLoadingBinding.root)
         val dialogWindow = window
         dialogWindow?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
@@ -95,8 +97,8 @@ class LoadingDialog private constructor(mContext: Context) : Dialog(mContext), L
     private fun show(loadingDialog: LoadingDialog) {
 
         if (!TextUtils.isEmpty(bootomDesc)) {
-            tv_bootom_desc.text = bootomDesc
-            tv_bootom_desc.visibility = View.VISIBLE
+            basicDialogLoadingBinding.tvBootomDesc.text = bootomDesc
+            basicDialogLoadingBinding.tvBootomDesc.visibility = View.VISIBLE
         }
 
         //屏蔽返回键
@@ -109,24 +111,24 @@ class LoadingDialog private constructor(mContext: Context) : Dialog(mContext), L
         setCanceledOnTouchOutside(canceledOnTouchOutsideValue)
 
         //设置弹窗背景
-        ll_dialog.setBackgroundResource(dialogBackgroundResource)
+        basicDialogLoadingBinding.llDialog.setBackgroundResource(dialogBackgroundResource)
 
-        tv_bootom_desc.setTextColor(bootomTextColor)
+        basicDialogLoadingBinding.tvBootomDesc.setTextColor(bootomTextColor)
 
-        tv_bootom_desc.textSize = bootomTextSize
+        basicDialogLoadingBinding.tvBootomDesc.textSize = bootomTextSize
 
         if (dialogWidth != 0f) {
-            val layoutParams = ll_dialog.layoutParams
+            val layoutParams = basicDialogLoadingBinding.llDialog.layoutParams
             layoutParams.width = dip2px(context, dialogWidth)
             layoutParams.height = dip2px(context, dialogHeight)
-            ll_dialog.layoutParams = layoutParams
+            basicDialogLoadingBinding.llDialog.layoutParams = layoutParams
         }
 
         if (progressbarSize != 0f) {
-            val layoutParams = progressBar.layoutParams
+            val layoutParams = basicDialogLoadingBinding.progressBar.layoutParams
             layoutParams.width = dip2px(context, progressbarSize)
             layoutParams.height = dip2px(context, progressbarSize)
-            progressBar.layoutParams = layoutParams
+            basicDialogLoadingBinding.progressBar.layoutParams = layoutParams
         }
 
 
@@ -147,7 +149,8 @@ class LoadingDialog private constructor(mContext: Context) : Dialog(mContext), L
 
     class Builder(context: Context) {
 
-        private var loadingDialog: LoadingDialog = LoadingDialog(context)
+        private var loadingDialog: LoadingDialog =
+            LoadingDialog(context)
 
         /**
          * 设置底部文字描述

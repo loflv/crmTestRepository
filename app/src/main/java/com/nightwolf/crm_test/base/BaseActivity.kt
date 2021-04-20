@@ -1,9 +1,11 @@
 package com.nightwolf.crm_test.base
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.nightwolf.crm_test.util.StatusBarUtils
 import com.orhanobut.logger.Logger
 
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
@@ -17,10 +19,10 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
             ViewModelProvider(this).get(it)
         }
 
-        setContentView(getLayoutId())
+        StatusBarUtils.setColor(this, Color.parseColor("#AABF68"))
 
-        initData()
         initView()
+        initData()
         startObserve()
 
     }

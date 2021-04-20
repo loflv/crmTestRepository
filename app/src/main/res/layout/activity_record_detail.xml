@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="30dp"
         android:paddingStart="10dp"
-        tools:context=".UI.activity.RecordDetailActivity">
+        tools:context=".ui.activity.RecordDetailActivity">
 
         <ScrollView
             android:id="@+id/scrollView2"

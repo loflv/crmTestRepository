@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C),2007-2020, LonBon Technologies Co. Ltd. All Rights Reserved.
+  -->
+
+<resources>
+    <item name="basic_edit_hint_tag" type="id"></item>
+    <item name="basic_statusbarutil_fake_status_bar_view" type="id" />
+</resources>

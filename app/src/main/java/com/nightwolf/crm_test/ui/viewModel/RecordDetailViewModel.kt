@@ -1,4 +1,4 @@
-package com.nightwolf.crm_test.UI.viewModel
+package com.nightwolf.crm_test.ui.viewModel
 
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData

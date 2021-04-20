@@ -1,18 +1,21 @@
-package com.nightwolf.crm_test.UI.Fragment
+package com.nightwolf.crm_test.ui.Fragment
 
 import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nightwolf.crm_test.R
-import com.nightwolf.crm_test.UI.activity.MainActivity
-import com.nightwolf.crm_test.UI.activity.RecordDetailActivity
-import com.nightwolf.crm_test.UI.viewModel.RecordFragmentViewModel
 import com.nightwolf.crm_test.base.BaseFragment
 import com.nightwolf.crm_test.bean.PostMesList
+import com.nightwolf.crm_test.databinding.FragmentRecordBinding
 import com.nightwolf.crm_test.pading.RecordPagingAdapter
-import kotlinx.android.synthetic.main.fragment_record.*
-import kotlinx.android.synthetic.main.fragment_record.view.*
+import com.nightwolf.crm_test.ui.activity.MainActivity
+import com.nightwolf.crm_test.ui.activity.RecordDetailActivity
+import com.nightwolf.crm_test.ui.viewModel.RecordFragmentViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,13 +37,12 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         chooseBean?.status = 1
         adapterRecord.notifyDataSetChanged()
 
-
         //?? adapterRecord 的remove事件
     }
 
 
     override fun initData() {
-        swipeRefresh.isRefreshing = true
+        binding.swipeRefresh.isRefreshing = true
         val mainActivity = requireActivity() as MainActivity
         lifecycleScope.launch {
             mFragmentViewModel.loadMes(mainActivity.baseViewModel.userId.toString())
@@ -53,8 +55,8 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
             @OptIn(ExperimentalCoroutinesApi::class)
             adapterRecord.loadStateFlow.collectLatest {
                 if (it.refresh !is LoadState.Loading) {
-                    swipeRefresh.isRefreshing = false
-                    wait_read_text.text = "无等待审阅的项目"
+                    binding.swipeRefresh.isRefreshing = false
+                    binding.waitReadText.text = "无等待审阅的项目"
                 }
             }
         }
@@ -75,11 +77,23 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         }
     }
 
-    override fun initView() {
-        my_recycler.layoutManager = LinearLayoutManager(requireActivity())
-        my_recycler.adapter = adapterRecord
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentRecordBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        swipeRefresh.setOnRefreshListener {
+    lateinit var binding: FragmentRecordBinding
+
+    override fun initView() {
+
+        binding.myRecycler.layoutManager = LinearLayoutManager(requireActivity())
+        binding.myRecycler.adapter = adapterRecord
+
+        binding.swipeRefresh.setOnRefreshListener {
             adapterRecord.refresh()
         }
     }
