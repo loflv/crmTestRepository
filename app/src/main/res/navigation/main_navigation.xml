@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/recordFragment"
-        android:name="com.example.crm_test.UI.Fragment.RecordFragment"
+        android:name="com.nightwolf.crm_test.UI.Fragment.RecordFragment"
         android:label="fragment_record"
         tools:layout="@layout/fragment_record" />
     <fragment
         android:id="@+id/collectionRecord"
-        android:name="com.example.crm_test.UI.Fragment.CollectionRecordFragment"
+        android:name="com.nightwolf.crm_test.UI.Fragment.CollectionRecordFragment"
         android:label="fragment_collection"
         tools:layout="@layout/fragment_collection_record" />
     <fragment
         android:id="@+id/myFragment"
-        android:name="com.example.crm_test.UI.Fragment.MyFragment"
+        android:name="com.nightwolf.crm_test.UI.Fragment.MyFragment"
         android:label="fragment_my"
         tools:layout="@layout/fragment_my" />
 </navigation>
