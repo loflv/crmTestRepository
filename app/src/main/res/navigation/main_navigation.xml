@@ -20,4 +20,8 @@
         android:name="com.nightwolf.crm_test.ui.Fragment.MyFragment"
         android:label="fragment_my"
         tools:layout="@layout/fragment_my" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.nightwolf.crm_test.ui.Fragment.FeedFragment"
+        android:label="FeedFragment" />
 </navigation>

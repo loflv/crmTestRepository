@@ -1,5 +1,6 @@
 package com.nightwolf.crm_test.api
 
+import com.nightwolf.crm_test.base.FeedBean
 import com.nightwolf.crm_test.base.OtherReply
 import com.nightwolf.crm_test.bean.*
 import okhttp3.RequestBody
@@ -33,7 +34,8 @@ interface CrmApi {
     suspend fun getRecord(
         @Query("cache_key") cache_key: String?,
         @Query("noticeId") noticeId: Long?,
-        @Query("_vs") _vs: String?
+        @Query("_vs") _vs: String?,
+        @Query("unread") unread: Int
     ): PostMesList
 
     /**
@@ -87,4 +89,14 @@ interface CrmApi {
         @Query("cache_key") cache_key: String?,
         @Query("_vs") _vs: String?
     ): OtherReply
+
+
+    @GET("feed/ats.action")
+    suspend fun getFeed(
+        @Query("size") size: Int?,
+        @Query("page") page: Int?,
+        @Query("unread") unread: Int?,
+        @Query("cache_key") cache_key: String?,
+        @Query("_vs") _vs: String?
+    ): FeedBean
 }

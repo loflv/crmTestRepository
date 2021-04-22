@@ -20,7 +20,7 @@ class RecordDataSource(val userId: String) :
         }
 
 
-        val record = retrofitService.getRecord(userId, key, "2010.7")
+        val record = retrofitService.getRecord(userId, key, "2010.7", 1)
 
         return try {
             LoadResult.Page(
