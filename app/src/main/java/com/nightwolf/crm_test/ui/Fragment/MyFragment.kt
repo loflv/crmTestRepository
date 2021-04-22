@@ -11,6 +11,7 @@ import com.nightwolf.crm_test.base.BaseFragment
 import com.nightwolf.crm_test.databinding.FragmentMyBinding
 import com.nightwolf.crm_test.ui.activity.LoginActivity
 import com.nightwolf.crm_test.ui.activity.MainActivity
+import com.nightwolf.crm_test.ui.activity.MyReportActivity
 import com.nightwolf.crm_test.ui.viewModel.LoginViewModel
 
 /**
@@ -37,6 +38,10 @@ class MyFragment : BaseFragment<LoginViewModel>() {
         binding.linearLogin.setOnClickListener {
             val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.myReport.setOnClickListener {
+            startActivity(Intent(requireContext(), MyReportActivity::class.java))
         }
     }
 

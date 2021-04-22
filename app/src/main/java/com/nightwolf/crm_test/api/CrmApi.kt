@@ -38,6 +38,16 @@ interface CrmApi {
         @Query("unread") unread: Int
     ): PostMesList
 
+    @GET("workreport/list-my-submitted.action")
+    suspend fun getMyRecord(
+        @Query("cache_key") cache_key: String?,
+        @Query("_vs") _vs: String?,
+        @Query("sortorder") sortorder: String,
+        @Query("sortdatafield") sortdatafield: String,
+        @Query("size") size: Int,
+        @Query("page") page: Int
+    ): MyReportBean
+
     /**
      * 发送已阅
      */

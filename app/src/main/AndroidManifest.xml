@@ -16,13 +16,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/img_launch"
         android:label="crm审阅工具"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/img_launch"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.CollectionDetailActivity"></activity>
-        <activity android:name=".ui.activity.LoginActivity">
 
-        </activity>
+
+        <activity android:name=".ui.activity.MyReportActivity" />
+
+        <activity android:name=".ui.activity.CollectionDetailActivity" />
+        <activity android:name=".ui.activity.LoginActivity"></activity>
         <activity android:name=".ui.activity.RecordDetailActivity" />
 
         <meta-data
