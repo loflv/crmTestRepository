@@ -136,5 +136,9 @@ dependencies {
 
     implementation 'com.tencent.bugly:crashreport:latest.release'
 
+    implementation 'com.google.android.material:material:1.2.0'
+
+    implementation 'com.makeramen:roundedimageview:2.2.1'
+
 
 }

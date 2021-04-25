@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nightwolf.crm_test.base.FeedBean
 import com.nightwolf.crm_test.databinding.FeedLayoutBinding
+import com.nightwolf.crm_test.util.atColor
 
 class FeedAdapter(val list: MutableList<FeedBean.BodyBean.AtListBean>) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
@@ -32,6 +33,7 @@ class FeedAdapter(val list: MutableList<FeedBean.BodyBean.AtListBean>) :
             holder.binding.name.setTextColor(Color.parseColor("#000000"))
         }
         holder.binding.content.text = atListBean.comment?.content
+        holder.binding.content.atColor()
     }
 
     inner class FeedViewHolder(val binding: FeedLayoutBinding) :

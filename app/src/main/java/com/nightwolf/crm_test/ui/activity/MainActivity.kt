@@ -33,6 +33,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
 //        bottomNavigationView.labelVisibilityMode = 1
 //        NavigationUI.setupActionBarWithNavController(this, findNavController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.bottomNavigationView, findNavController)
+        binding.bottomNavigationView.labelVisibilityMode = 1
     }
 
     override fun initData() {

@@ -13,51 +13,79 @@
         android:background="#AABF68"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="登录" />
+        app:title="登录"
+        app:titleTextColor="#ffffff" />
 
+    <!--    riv_border_width： 边框宽度 
+        riv_border_color： 边框颜色 
+        riv_oval： 是否圆形 
+        riv_corner_radius： 圆角弧度 
+        riv_corner_radius_top_left：左上角弧度 
+        riv_corner_radius_top_right： 右上角弧度 
+        riv_corner_radius_bottom_left：左下角弧度 
+        riv_corner_radius_bottom_right：右下角弧度-->
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:src="@mipmap/img_launch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_border_color="#333333"
+        app:riv_border_width="2dp"
+        app:riv_oval="true" />
 
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="48dp"
         android:autofillHints=""
+        android:background="@drawable/input_drawable_background"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true"
+        android:paddingStart="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="48dp"
         android:autofillHints=""
+        android:background="@drawable/input_drawable_background"
         android:hint="@string/prompt_password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
+        android:paddingStart="15dp"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="64dp"
         android:text="登录"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="19dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
+        app:backgroundTint="#43C1F7"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"

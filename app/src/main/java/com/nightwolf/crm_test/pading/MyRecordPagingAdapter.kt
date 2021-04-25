@@ -3,15 +3,14 @@ package com.nightwolf.crm_test.pading
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.bean.MyReportBean
+import com.nightwolf.crm_test.databinding.RecordListItemLayoutBinding
 import java.text.SimpleDateFormat
 
 class MyRecordPagingAdapter(val callback: (Int, Long, MyReportBean.BodyBean.ReportsBean) -> Unit) :
@@ -42,11 +41,10 @@ class MyRecordPagingAdapter(val callback: (Int, Long, MyReportBean.BodyBean.Repo
             val item = getItem(position)
 
 
-            holder.mName.text =
-                SimpleDateFormat("${userName}[MM/dd日报]").format(item!!.date)
-            holder.mContent.setOnClickListener {
-//                Logger.d("点击了$position")
-//                callback(position, item!!.operate, item)
+            holder.binding.name.text =
+                SimpleDateFormat("\n${userName}-MM月dd日的报告").format(item!!.date)
+            holder.binding.viewLineLayout.setOnClickListener {
+
             }
         }
     }
@@ -54,21 +52,21 @@ class MyRecordPagingAdapter(val callback: (Int, Long, MyReportBean.BodyBean.Repo
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         userName = MyApplication.mContext.getSharedPreferences("login", Context.MODE_PRIVATE)
             .getString("accountName", "")!!
-        val inflate =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.record_list_item_layout, parent, false)
-        return MyViewHolder(inflate)
+
+
+        val binding = RecordListItemLayoutBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        binding.imgShow.setImageResource(R.mipmap.img_my_record)
+        return MyViewHolder(
+            binding
+        )
     }
 
 
-    inner class MyViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        var mName: TextView
-        var mContent: View
-
-        init {
-            mName = itemView.findViewById(R.id.name)
-            mContent = itemView.findViewById(R.id.content)
-        }
+    inner class MyViewHolder(val binding: RecordListItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
     }
 }

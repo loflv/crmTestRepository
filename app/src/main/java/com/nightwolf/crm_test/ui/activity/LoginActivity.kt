@@ -50,12 +50,14 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
      * 过期重新登录时
      */
     override fun initData() {
+        val phone = MyApplication.mContext.getSharedPreferences(
+            "login",
+            Context.MODE_PRIVATE
+        ).getString("userName", "")
         binding.username.setText(
-            MyApplication.mContext.getSharedPreferences(
-                "login",
-                Context.MODE_PRIVATE
-            ).getString("userName", "")
+            phone
         )
+        binding.username.setSelection(phone?.length ?: 0)
 
         binding.password.setText(
             MyApplication.mContext.getSharedPreferences(

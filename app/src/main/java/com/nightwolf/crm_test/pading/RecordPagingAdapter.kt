@@ -2,17 +2,14 @@ package com.nightwolf.crm_test.pading
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.bean.PostMesList
+import com.nightwolf.crm_test.databinding.RecordListItemLayoutBinding
 import com.orhanobut.logger.Logger
-import java.text.SimpleDateFormat
 
 class RecordPagingAdapter(val callback: (Int, Long, PostMesList.BodyBean.NoticesBean) -> Unit) :
     PagingDataAdapter<PostMesList.BodyBean.NoticesBean,
@@ -39,18 +36,19 @@ class RecordPagingAdapter(val callback: (Int, Long, PostMesList.BodyBean.Notices
             val item = getItem(position)
             //过滤 提交已读的
             if (!(item?.content!!.contains("提交") && item.status == 0)) {
-                val layoutParams = holder.mContent.layoutParams
+                val layoutParams = holder.binding.viewLineLayout.layoutParams
                 layoutParams.height = 0
-                holder.mContent.layoutParams = layoutParams
+                holder.binding.viewLineLayout.layoutParams = layoutParams
                 return
             } else {
-                val layoutParams = holder.mContent.layoutParams
+                val layoutParams = holder.binding.viewLineLayout.layoutParams
                 layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
-                holder.mContent.layoutParams = layoutParams
+                holder.binding.viewLineLayout.layoutParams = layoutParams
             }
 
-            holder.mName.text = item.user?.name + item?.content
-            holder.mContent.setOnClickListener {
+            holder.binding.name.text = item.user?.name
+            holder.binding.content.text = item?.content
+            holder.binding.viewLineLayout.setOnClickListener {
                 Logger.d("点击了$position")
                 callback(position, item!!.operate, item)
             }
@@ -58,21 +56,17 @@ class RecordPagingAdapter(val callback: (Int, Long, PostMesList.BodyBean.Notices
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflate =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.record_list_item_layout, parent, false)
-        return MyViewHolder(inflate)
+        return MyViewHolder(
+            RecordListItemLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
 
-    inner class MyViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        var mName: TextView
-        var mContent: View
-
-        init {
-            mName = itemView.findViewById(R.id.name)
-            mContent = itemView.findViewById(R.id.content)
-        }
+    inner class MyViewHolder(val binding: RecordListItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
     }
 }
