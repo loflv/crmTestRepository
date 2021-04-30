@@ -26,9 +26,9 @@ class MyReportActivity : BaseActivity<MyReportVieModel>() {
 
         binding.myRecycler.layoutManager = LinearLayoutManager(this)
         val myRecordPagingAdapter = MyRecordPagingAdapter { _, _, bean ->
-            val intent =
+/*            val intent =
                 RecordDetailActivity.jumpToRecordDetail(this, recordId, bean.id)
-            startActivityForResult(intent, i)
+            startActivityForResult(intent, i)*/
         }
         binding.myRecycler.adapter = myRecordPagingAdapter
 

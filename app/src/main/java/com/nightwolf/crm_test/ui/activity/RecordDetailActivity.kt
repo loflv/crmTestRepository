@@ -22,8 +22,8 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
     companion object {
         fun jumpToRecordDetail(context: Context, recordId: Long, id: Long): Intent {
             val intent = Intent(context, RecordDetailActivity::class.java)
-            intent.putExtra("passport_id", recordId)
-            intent.putExtra("id", id)
+            intent.putExtra("recordId", recordId)
+            intent.putExtra("userId", id)
             return intent
         }
     }
@@ -75,13 +75,13 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
     }
 
     override fun initData() {
-        baseViewModel.passport_id = intent.getLongExtra("passport_id", 0).toString()
-        baseViewModel.id = intent.getLongExtra("id", 0).toString()
+        baseViewModel.recordId = intent.getLongExtra("recordId", 0).toString()
+        baseViewModel.userId = intent.getLongExtra("userId", 0).toString()
         baseViewModel.initData()
 
         binding.otherReplyRecycler.layoutManager = LinearLayoutManager(this)
         binding.otherReplyRecycler.adapter =
-            OtherReplayAdapter(baseViewModel.reReplyList, baseViewModel.id)
+            OtherReplayAdapter(baseViewModel.reReplyList, baseViewModel.userId)
     }
 
     override fun startObserve() {

@@ -41,7 +41,8 @@ class FeedFragment : BaseFragment<FeedViewModel>() {
 
         viewModel.getFeedBack().observe(this, Observer {
             list.clear()
-            list.addAll(it!!)
+            //没有登录时
+            list.addAll(it ?: listOf())
             binding.recyclerView.adapter!!.notifyDataSetChanged()
         })
 

@@ -13,6 +13,7 @@ import com.nightwolf.crm_test.base.BaseFragment
 import com.nightwolf.crm_test.bean.PostMesList
 import com.nightwolf.crm_test.databinding.FragmentRecordBinding
 import com.nightwolf.crm_test.pading.RecordPagingAdapter
+import com.nightwolf.crm_test.ui.activity.LoginActivity
 import com.nightwolf.crm_test.ui.activity.MainActivity
 import com.nightwolf.crm_test.ui.activity.RecordDetailActivity
 import com.nightwolf.crm_test.ui.viewModel.RecordFragmentViewModel
@@ -50,6 +51,17 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
                     adapterRecord.submitData(it)
                 }
         }
+
+        adapterRecord.addLoadStateListener {
+            when (it.refresh) {
+                is LoadState.Error -> {
+                    val intent = Intent(requireContext(), LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+            }
+        }
+
         //监听刷新状态当刷新完成之后关闭刷新
         lifecycleScope.launch {
             @OptIn(ExperimentalCoroutinesApi::class)

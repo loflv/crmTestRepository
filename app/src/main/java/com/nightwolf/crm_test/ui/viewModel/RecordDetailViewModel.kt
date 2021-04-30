@@ -15,8 +15,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class RecordDetailViewModel : BaseViewModel() {
-    lateinit var passport_id: String
-    lateinit var id: String
+    lateinit var recordId: String
+    lateinit var userId: String
     lateinit var text1_content: String
     lateinit var text2_content: String
 
@@ -43,9 +43,9 @@ class RecordDetailViewModel : BaseViewModel() {
         launch {
             val phoneRetrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
             val sendHaveRead = phoneRetrofitService.sendHaveRead(
-                passport_id,
+                recordId,
                 "601",
-                id,
+                userId,
                 "2010.7",
                 "已阅".toRequestBody("text/plain".toMediaType()),
                 "1".toRequestBody("text/plain".toMediaType())
@@ -55,7 +55,7 @@ class RecordDetailViewModel : BaseViewModel() {
             }
             phoneRetrofitService.sendMesRead(
                 "1",
-                id,
+                userId,
                 "1213283083206995",
                 "2010.7"
             )
@@ -72,7 +72,7 @@ class RecordDetailViewModel : BaseViewModel() {
             val phoneRetrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
             phoneRetrofitService.sendMesRead(
                 "1",
-                id,
+                userId,
                 "1213283083206995",
                 "2010.7"
             )
@@ -84,17 +84,18 @@ class RecordDetailViewModel : BaseViewModel() {
         launch {
             val recordDetail =
                 NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getRecordDetail(
-                    passport_id,
-                    id, "2010.7"
+                    recordId,
+                    userId, "2010.7"
                 )
             text1_content = recordDetail.body?.report?.content!!.replace("\r", "\n")
             text2_content = recordDetail.body?.report?.plan!!.replace("\r", "\n")
             postMesBeanLiveData.value = recordDetail
 
-            val otherReply = NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getOtherReply(
-                passport_id, "601", id, "2010.7"
-            )
 
+            //查询其他人的记录
+            val otherReply = NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getOtherReply(
+                recordId, "601", userId, "2010.7"
+            )
             otherReply.body?.comments?.let {
                 reReplyList.addAll(it)
                 postReplyListSize.value = reReplyList.size
@@ -104,8 +105,8 @@ class RecordDetailViewModel : BaseViewModel() {
     }
 
     fun insertDatabase(recordRoomBean: RecordRoomBean) {
-       ioThread {
-           RecordDatabase.get().recordDao().insertRecord(recordRoomBean)
-       }
+        ioThread {
+            RecordDatabase.get().recordDao().insertRecord(recordRoomBean)
+        }
     }
 }

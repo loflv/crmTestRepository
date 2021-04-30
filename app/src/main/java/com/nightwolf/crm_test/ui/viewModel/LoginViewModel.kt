@@ -49,10 +49,9 @@ class LoginViewModel : BaseViewModel() {
             }
 
             //保存信息 todo
-
             SharedPreferencesRepository.putContent {
                 putLong("passport_id", login.result!!.passport_id)
-                apply()
+                commit()
             }
             val mapOf = mapOf(
                 "user_type" to "0",
@@ -78,7 +77,7 @@ class LoginViewModel : BaseViewModel() {
                 putString("userName", username)
                 putString("password", password)
                 putString("accountName", lastToken.result?.mobileAuthData?.result?.userName)
-                apply()
+                commit()
             }
 
             loginSuccess.value = true
