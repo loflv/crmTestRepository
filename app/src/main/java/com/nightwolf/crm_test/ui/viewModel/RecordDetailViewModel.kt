@@ -76,6 +76,7 @@ class RecordDetailViewModel : BaseViewModel() {
                 "1213283083206995",
                 "2010.7"
             )
+            sendSuccess.value = 1
             Toast.makeText(MyApplication.mContext, "发送成功", Toast.LENGTH_SHORT).show()
         }
     }

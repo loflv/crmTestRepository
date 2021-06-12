@@ -29,15 +29,11 @@ class MainActivity : BaseActivity<MainViewModel>() {
             this,
             R.id.fragment
         )
-//        val appBarConfiguration = AppBarConfiguration.Builder(bottomNavigationView.menu).build()
-//        bottomNavigationView.labelVisibilityMode = 1
-//        NavigationUI.setupActionBarWithNavController(this, findNavController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.bottomNavigationView, findNavController)
         binding.bottomNavigationView.labelVisibilityMode = 1
     }
 
     override fun initData() {
-//        CrashHandler(this)
         isLogin()
     }
 

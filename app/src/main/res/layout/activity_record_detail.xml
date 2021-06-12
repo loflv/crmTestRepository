@@ -81,14 +81,6 @@
                         android:layout_weight="1"
                         android:text="发送已阅" />
 
-                    <Button
-                        android:id="@+id/signRead"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_marginBottom="35dp"
-                        android:layout_weight="1"
-                        android:text="标记为已读" />
 
                     <Button
                         android:id="@+id/collect"

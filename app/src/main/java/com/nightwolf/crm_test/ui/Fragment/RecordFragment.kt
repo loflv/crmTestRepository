@@ -37,8 +37,6 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
 
         chooseBean?.status = 1
         adapterRecord.notifyDataSetChanged()
-
-        //?? adapterRecord 的remove事件
     }
 
 
@@ -68,7 +66,7 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
             adapterRecord.loadStateFlow.collectLatest {
                 if (it.refresh !is LoadState.Loading) {
                     binding.swipeRefresh.isRefreshing = false
-                    binding.waitReadText.text = "无等待审阅的项目"
+//                    binding.waitReadText.text = "无等待审阅的项目"
                 }
             }
         }
