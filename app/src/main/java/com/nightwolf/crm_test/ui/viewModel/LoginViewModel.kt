@@ -77,6 +77,7 @@ class LoginViewModel : BaseViewModel() {
                 putString("userName", username)
                 putString("password", password)
                 putString("accountName", lastToken.result?.mobileAuthData?.result?.userName)
+                putLong("userId", lastToken.result?.mobileAuthData?.result?.userId ?: 0)
                 commit()
             }
 

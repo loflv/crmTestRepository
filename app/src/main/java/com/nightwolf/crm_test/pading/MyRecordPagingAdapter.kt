@@ -44,7 +44,7 @@ class MyRecordPagingAdapter(val callback: (Int, Long, MyReportBean.BodyBean.Repo
             holder.binding.name.text =
                 SimpleDateFormat("\n${userName}-MM月dd日的报告").format(item!!.date)
             holder.binding.viewLineLayout.setOnClickListener {
-
+                callback(position, item.id!!, item)
             }
         }
     }

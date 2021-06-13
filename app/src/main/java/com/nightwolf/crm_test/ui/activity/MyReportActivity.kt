@@ -1,8 +1,10 @@
 package com.nightwolf.crm_test.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.base.BaseActivity
 import com.nightwolf.crm_test.databinding.ActivityMyReportBinding
@@ -26,9 +28,14 @@ class MyReportActivity : BaseActivity<MyReportVieModel>() {
 
         binding.myRecycler.layoutManager = LinearLayoutManager(this)
         val myRecordPagingAdapter = MyRecordPagingAdapter { _, _, bean ->
-/*            val intent =
-                RecordDetailActivity.jumpToRecordDetail(this, recordId, bean.id)
-            startActivityForResult(intent, i)*/
+            RecordDetailActivity.jumpToRecordDetail(
+                this,  bean.id!!,MyApplication.mContext.getSharedPreferences(
+                    "login",
+                    Context.MODE_PRIVATE
+                ).getLong("userId", 0)
+            ).let {
+                startActivity(it)
+            }
         }
         binding.myRecycler.adapter = myRecordPagingAdapter
 
