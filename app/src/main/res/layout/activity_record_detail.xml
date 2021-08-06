@@ -103,7 +103,9 @@
                     android:id="@+id/otherReplyRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp" />
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:minHeight="200dp" />
             </LinearLayout>
         </ScrollView>
 

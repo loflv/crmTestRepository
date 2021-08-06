@@ -55,7 +55,7 @@ class MyReportBean {
             var content: String? = null
             var fileName: String? = null
             var fileUrl: String? = null
-            var recipient: Int? = 0
+            var recipient: Double? = 0.0
             var status: Int? = 0
             var createdAt: Long? = 0
             var updatedAt: Long? = 0
@@ -76,7 +76,7 @@ class MyReportBean {
                  * icon :
                  * type : 0
                  */
-                var uid: Int? = 0
+                var uid: String? = "0"
                 var name: String? = null
                 var icon: String? = null
                 var type: Int? = 0

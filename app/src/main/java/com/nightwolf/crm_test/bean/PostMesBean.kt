@@ -46,7 +46,7 @@ class PostMesBean {
             var content: String? = null
             var fileName: String? = null
             var fileUrl: String? = null
-            var recipient = 0
+            var recipient: Double? = 0.0
             var status = 0
             var createdAt: Long = 0
             var updatedAt: Long = 0
@@ -62,7 +62,7 @@ class PostMesBean {
                  * icon :
                  * type : 0
                  */
-                var uid: Long = 0
+                var uid: String? = "0"
                 var name: String? = null
                 var icon: String? = null
                 var type = 0
@@ -90,7 +90,7 @@ class PostMesBean {
                  * icon :
                  * type : 0
                  */
-                var uid = 0
+                var uid: String? = "0"
                 var name: String? = null
                 var icon: String? = null
                 var type = 0
@@ -104,7 +104,7 @@ class PostMesBean {
                  * icon :
                  * type : 0
                  */
-                var uid :Long = 0
+                var uid: Long = 0
                 var name: String? = null
                 var icon: String? = null
                 var type = 0

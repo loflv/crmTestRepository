@@ -36,7 +36,9 @@ class OtherReplayAdapter(
     override fun onBindViewHolder(holder: OtherReplyAdapter, position: Int) {
 
         //干掉已阅
-        if (list[position].content.equals("已阅") && position > 1 && list[position].id != id.toLong()) {
+        if ((list[position].content?.length
+                ?: 0) < 3 && position > 1 && list[position].id != id.toLong()
+        ) {
             holder.binding.userName.visibility = View.GONE
             holder.binding.time.visibility = View.GONE
             holder.binding.content.visibility = View.GONE
