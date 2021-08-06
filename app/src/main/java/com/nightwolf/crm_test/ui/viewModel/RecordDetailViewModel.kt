@@ -88,6 +88,12 @@ class RecordDetailViewModel : BaseViewModel() {
                     recordId,
                     userId, "2010.7"
                 )
+            if (recordDetail.body?.report?.content.isNullOrEmpty()) {
+                signRead()
+                Toast.makeText(MyApplication.mContext, "日志已被删除", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+
             text1_content = recordDetail.body?.report?.content!!.replace("\r", "\n")
             text2_content = recordDetail.body?.report?.plan!!.replace("\r", "\n")
             postMesBeanLiveData.value = recordDetail
