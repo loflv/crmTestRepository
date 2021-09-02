@@ -13,7 +13,7 @@ class RecordDataSource(val userId: String) :
 
     override suspend fun load(params: LoadParams<Long>): LoadResult<Long, PostMesList.BodyBean.NoticesBean> {
         val retrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
-        var key: Long? = if (0L === params.key) {
+        var key = if (0L == params.key) {
             null
         } else {
             params.key

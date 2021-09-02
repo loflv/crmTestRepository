@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="工作内容:"
                 android:textStyle="bold"
+                android:textColor="#000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textSize="14sp"
+                android:textColor="#000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text1" />
 
@@ -47,6 +49,7 @@
                 android:text="计划:"
                 android:textSize="16dp"
                 android:textStyle="bold"
+                android:textColor="#000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text1_content" />
 
@@ -57,6 +60,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="30dp"
                 android:textSize="14sp"
+                android:textColor="#000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text2" />
 
