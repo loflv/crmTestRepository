@@ -35,6 +35,9 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
             return
         }
 
+        if (binding.lookHaveRead.isChecked) {
+            return
+        }
         chooseBean?.status = 1
         adapterRecord.notifyDataSetChanged()
     }
@@ -44,10 +47,11 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         binding.swipeRefresh.isRefreshing = true
         val mainActivity = requireActivity() as MainActivity
         lifecycleScope.launch {
-            mFragmentViewModel.loadMes(mainActivity.baseViewModel.userId.toString())
-                .collectLatest {
-                    adapterRecord.submitData(it)
-                }
+            mFragmentViewModel.loadMes(
+                mainActivity.baseViewModel.userId.toString(), 1
+            ).collectLatest {
+                adapterRecord.submitData(it)
+            }
         }
 
         adapterRecord.addLoadStateListener {
@@ -66,10 +70,11 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
             adapterRecord.loadStateFlow.collectLatest {
                 if (it.refresh !is LoadState.Loading) {
                     binding.swipeRefresh.isRefreshing = false
-//                    binding.waitReadText.text = "无等待审阅的项目"
                 }
             }
         }
+
+
     }
 
     override fun getLayoutId(): Int {
@@ -93,6 +98,23 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentRecordBinding.inflate(layoutInflater)
+
+        binding.lookHaveRead.setOnCheckedChangeListener { buttonView, isChecked ->
+            adapterRecord.seeHaveRead = isChecked
+            lifecycleScope.launch {
+                val mainActivity = requireActivity() as MainActivity
+                mFragmentViewModel.loadMes(
+                    mainActivity.baseViewModel.userId.toString(),
+                    if (binding.lookHaveRead.isChecked) {
+                        0
+                    } else {
+                        1
+                    }
+                ).collectLatest {
+                    adapterRecord.submitData(it)
+                }
+            }
+        }
         return binding.root
     }
 

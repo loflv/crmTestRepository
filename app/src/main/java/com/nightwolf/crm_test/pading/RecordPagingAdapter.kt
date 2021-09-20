@@ -31,19 +31,31 @@ class RecordPagingAdapter(val callback: (Int, Long, PostMesList.BodyBean.Notices
         }
 
     }) {
+
+    /**
+     * 是否查看已读
+     */
+    var seeHaveRead = false
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RecordPagingAdapter.MyViewHolder) {
             val item = getItem(position)
-            //过滤 提交已读的
-            if (!(item?.content!!.contains("提交") && item.status == 0)) {
+            //过滤 提交 和 已读的
+            if (!(item?.content!!.contains("提交"))) {
                 val layoutParams = holder.binding.viewLineLayout.layoutParams
                 layoutParams.height = 0
                 holder.binding.viewLineLayout.layoutParams = layoutParams
                 return
             } else {
-                val layoutParams = holder.binding.viewLineLayout.layoutParams
-                layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
-                holder.binding.viewLineLayout.layoutParams = layoutParams
+                //未读的隐藏 在不查看的情况下
+                if (item.status == 1 && !seeHaveRead) {
+                    val layoutParams = holder.binding.viewLineLayout.layoutParams
+                    layoutParams.height = 0
+                    holder.binding.viewLineLayout.layoutParams = layoutParams
+                } else {
+                    val layoutParams = holder.binding.viewLineLayout.layoutParams
+                    layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT
+                    holder.binding.viewLineLayout.layoutParams = layoutParams
+                }
             }
 
             holder.binding.name.text = item.user?.name

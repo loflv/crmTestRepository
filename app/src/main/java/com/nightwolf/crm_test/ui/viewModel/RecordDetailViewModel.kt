@@ -20,7 +20,7 @@ class RecordDetailViewModel : BaseViewModel() {
     lateinit var text1_content: String
     lateinit var text2_content: String
 
-    var reReplyList = mutableListOf<OtherReply.BodyBean.CommentsBean>()
+    var reReplyList = mutableListOf<OtherReply.DataBean.CommentListBean>()
         private set
 
     var postReplyListSize: MutableLiveData<Int> =
@@ -100,10 +100,13 @@ class RecordDetailViewModel : BaseViewModel() {
 
 
             //查询其他人的记录
-            val otherReply = NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getOtherReply(
-                recordId, "601", userId, "2010.7"
+            val otherReply = NetWorkUtils.phoneRetrofitService(
+                CrmApi::class.java,
+                "https://crm-p05.xiaoshouyi.com/"
+            ).getOtherReply(
+                recordId, "601", userId, 1000, 1, "2010.7"
             )
-            otherReply.body?.comments?.let {
+            otherReply.data?.commentList?.let {
                 reReplyList.addAll(it)
                 postReplyListSize.value = reReplyList.size
             }

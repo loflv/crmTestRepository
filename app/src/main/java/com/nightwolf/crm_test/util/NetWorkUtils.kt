@@ -110,7 +110,7 @@ object NetWorkUtils {
     }
 
 
-    fun <T> phoneRetrofitService(clazz: Class<T>?): T {
+    fun <T> phoneRetrofitService(clazz: Class<T>?, specialUrl: String = ""): T {
         val interceptor =
             HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
                 override fun log(message: String) {
@@ -157,7 +157,11 @@ object NetWorkUtils {
             })
             .addInterceptor(interceptor)
         val client = builder.build()
-        val retrofit = Retrofit.Builder().baseUrl("https://crm-p05.xiaoshouyi.com/mobile/")
+        var url = "https://crm-p05.xiaoshouyi.com/mobile/"
+        if (specialUrl.isNotBlank()) {
+            url = specialUrl
+        }
+        val retrofit = Retrofit.Builder().baseUrl(url)
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())

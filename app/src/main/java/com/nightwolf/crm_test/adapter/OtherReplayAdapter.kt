@@ -11,7 +11,7 @@ import com.nightwolf.crm_test.databinding.RecyclterItemOtherReplayBinding
 import java.text.SimpleDateFormat
 
 class OtherReplayAdapter(
-    val list: MutableList<OtherReply.BodyBean.CommentsBean>,
+    val list: MutableList<OtherReply.DataBean.CommentListBean>,
     val id: String
 ) :
     RecyclerView.Adapter<OtherReplayAdapter.OtherReplyAdapter>() {
@@ -45,7 +45,7 @@ class OtherReplayAdapter(
             return
         }
 
-        holder.binding.time.text = SimpleDateFormat("HH:mm:ss").format(list[position].date)
+        holder.binding.time.text = SimpleDateFormat("HH:mm:ss").format(list[position].createdAt)
         holder.binding.userName.text = list[position].user?.name
         holder.binding.content.text = list[position].content
 

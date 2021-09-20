@@ -92,11 +92,13 @@ interface CrmApi {
         @Field("login_type") login_type: String?
     ): LoginBean
 
-    @GET("comment/list.action")
+    @GET("json/sns_comment/list.action")
     suspend fun getOtherReply(
-        @Query("systemItemId") systemItemId: String?,
-        @Query("systemId") systemId: String?,
+        @Query("commentSystemItemId") systemId: String?,
+        @Query("commentSystemId") systemItemId: String?,
         @Query("cache_key") cache_key: String?,
+        @Query("pageSize") pageSize: Int,
+        @Query("pageNo") pageNo: Int?,
         @Query("_vs") _vs: String?
     ): OtherReply
 

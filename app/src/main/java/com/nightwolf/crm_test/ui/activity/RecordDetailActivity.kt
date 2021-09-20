@@ -3,9 +3,7 @@ package com.nightwolf.crm_test.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.R
@@ -15,9 +13,6 @@ import com.nightwolf.crm_test.databinding.ActivityRecordDetailBinding
 import com.nightwolf.crm_test.room.RecordRoomBean
 import com.nightwolf.crm_test.ui.viewModel.RecordDetailViewModel
 import com.nightwolf.crm_test.util.ioThread
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 /**
@@ -113,13 +108,10 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
                     .getString("accountName", "") ?: ""
             }?.let {
                 binding.read.visibility = View.GONE
-                lifecycleScope.launch {
-                    baseViewModel.signRead()
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RecordDetailActivity, "记录重复提交", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
+//                lifecycleScope.launch {
+//                    baseViewModel.signRead()
+//
+//                }
 
             }
         })

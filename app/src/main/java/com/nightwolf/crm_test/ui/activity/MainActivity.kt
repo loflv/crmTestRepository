@@ -29,6 +29,9 @@ class MainActivity : BaseActivity<MainViewModel>() {
             this,
             R.id.fragment
         )
+        binding.bottomNavigationView.setOnNavigationItemReselectedListener {
+            
+        }
         NavigationUI.setupWithNavController(binding.bottomNavigationView, findNavController)
         binding.bottomNavigationView.labelVisibilityMode = 1
     }

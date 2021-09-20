@@ -44,8 +44,8 @@ class RecordFragmentViewModel : BaseViewModel() {
         return listLiveData.value!!
     }
 
-    fun loadMes(userId: String) = Pager(PagingConfig(3)) {
-        RecordDataSource(userId)
+    fun loadMes(userId: String,unread:Int) = Pager(PagingConfig(3)) {
+        RecordDataSource(userId,unread)
     }.flow.cachedIn(viewModelScope)
 
 }
