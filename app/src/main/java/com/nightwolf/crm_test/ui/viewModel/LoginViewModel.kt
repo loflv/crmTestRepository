@@ -1,5 +1,6 @@
 package com.nightwolf.crm_test.ui.viewModel
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
@@ -8,10 +9,13 @@ import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.base.BaseViewModel
 import com.nightwolf.crm_test.bean.LoginBean
+import com.nightwolf.crm_test.util.Base64Utils
 import com.nightwolf.crm_test.util.NetWorkUtils
+import com.nightwolf.crm_test.util.RSAUtils
 import com.nightwolf.crm_test.util.SharedPreferencesRepository
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.net.URLEncoder
 
 class LoginViewModel : BaseViewModel() {
 
@@ -33,11 +37,20 @@ class LoginViewModel : BaseViewModel() {
                 "https://crm.xiaoshouyi.com/mobile/auc/loginSupport.action?&os=28&_vs=2010.7" +
                         "&imei=865472047803957&app_type=0&login_type=mobile&source=1&model=HUAWEI%20HWJKM-H"
             )
+
+            val keyBean = retrofit.getKey(
+                "https://login.xiaoshouyi.com/auc/passport/password-key"
+            )
+            val ss =
+                RSAUtils.encryptByPublicKey(password.trim().toByteArray(), keyBean.result?.key)
+            val encode = Base64Utils.encode(ss).trim().replace("\n", "").replace("\r", "")
+            Log.d("ssss  解密后数据  ", encode)
+
             //登录
             val login = retrofit.login(
                 "https://login.xiaoshouyi.com/auc/login",
                 username,
-                password,
+                encode,
                 "web"
             )
 

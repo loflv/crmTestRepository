@@ -70,6 +70,9 @@ interface CrmApi {
         @Query("_vs") _vs: String?
     ): String
 
+    @GET()
+    suspend fun getKey(@Url url: String): PasswordKeyBean
+
     @GET
     suspend fun mainIndex(@Url url: String?): String
 
