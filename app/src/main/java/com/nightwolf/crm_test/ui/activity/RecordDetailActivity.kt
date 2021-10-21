@@ -6,13 +6,12 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nightwolf.crm_test.MyApplication
-import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.adapter.OtherReplayAdapter
 import com.nightwolf.crm_test.base.BaseActivity
 import com.nightwolf.crm_test.databinding.ActivityRecordDetailBinding
+import com.nightwolf.crm_test.ext.ioThread
 import com.nightwolf.crm_test.room.RecordRoomBean
 import com.nightwolf.crm_test.ui.viewModel.RecordDetailViewModel
-import com.nightwolf.crm_test.util.ioThread
 
 
 /**
@@ -32,10 +31,6 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
     override fun onBackPressed() {
         setResult(baseViewModel.sendSuccess.value!!)
         finish()
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_record_detail
     }
 
     override fun getViewModelClass(): Class<RecordDetailViewModel> {
@@ -81,11 +76,6 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
         binding.otherReplyRecycler.adapter =
             OtherReplayAdapter(baseViewModel.reReplyList, baseViewModel.userId)
 
-
-    }
-
-    override fun startObserve() {
-        super.startObserve()
         baseViewModel.sendSuccess.observe(this, Observer {
             if (it == 1) {
                 binding.read.visibility = View.GONE
@@ -110,11 +100,12 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
                 binding.read.visibility = View.GONE
 //                lifecycleScope.launch {
 //                    baseViewModel.signRead()
-//
 //                }
 
             }
         })
 
     }
+
+
 }

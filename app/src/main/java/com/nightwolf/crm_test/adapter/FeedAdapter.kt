@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nightwolf.crm_test.base.FeedBean
+import com.nightwolf.crm_test.bean.FeedBean
 import com.nightwolf.crm_test.databinding.FeedLayoutBinding
 import com.nightwolf.crm_test.util.atColor
 

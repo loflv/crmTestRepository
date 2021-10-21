@@ -1,9 +1,12 @@
-package com.nightwolf.crm_test.pading
+package com.nightwolf.crm_test.paging
 
 import androidx.paging.PagingSource
+import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.bean.PostMesList
-import com.nightwolf.crm_test.util.NetWorkUtils
+import com.nightwolf.crm_test.bean.global.NO_NET_WORK_ERROR
+import com.nightwolf.crm_test.util.NetWorkUtil
+import com.nightwolf.crm_test.util.RetrofitUtils
 import com.orhanobut.logger.Logger
 
 class RecordDataSource(val userId: String, val unread: Int) :
@@ -12,17 +15,20 @@ class RecordDataSource(val userId: String, val unread: Int) :
     var emptyTime = 0
 
     override suspend fun load(params: LoadParams<Long>): LoadResult<Long, PostMesList.BodyBean.NoticesBean> {
-        val retrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
+
+        if (!NetWorkUtil.isConnected(MyApplication.mContext)) {
+            return LoadResult.Error(Exception(NO_NET_WORK_ERROR))
+        }
+
+        val retrofitService = RetrofitUtils.createRetrofitService(CrmApi::class.java)
         var key = if (0L == params.key) {
             null
         } else {
             params.key
         }
-
-
-        val record = retrofitService.getRecord(userId, key, "2010.7", unread)
-
         return try {
+            val record = retrofitService.getRecord(userId, key, "2010.7", unread)
+
             LoadResult.Page(
                 //需要加载的数据
                 data = record.body!!.notices!!

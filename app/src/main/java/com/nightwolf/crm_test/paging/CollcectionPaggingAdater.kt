@@ -1,4 +1,4 @@
-package com.nightwolf.crm_test.pading
+package com.nightwolf.crm_test.paging
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

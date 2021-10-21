@@ -1,4 +1,4 @@
-package com.nightwolf.crm_test.base
+package com.nightwolf.crm_test.bean
 
 class OtherReply {
     var status = 0

@@ -4,10 +4,8 @@ package com.nightwolf.crm_test.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.nightwolf.crm_test.MyApplication
-import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.base.BaseActivity
 import com.nightwolf.crm_test.databinding.ActivityLoginBinding
 import com.nightwolf.crm_test.ui.viewModel.LoginViewModel
@@ -16,9 +14,7 @@ import com.nightwolf.crm_test.ui.viewModel.LoginViewModel
 class LoginActivity : BaseActivity<LoginViewModel>() {
 
     lateinit var binding: ActivityLoginBinding
-    override fun getLayoutId(): Int {
-        return R.layout.activity_login
-    }
+
 
     override fun getViewModelClass(): Class<LoginViewModel> {
         return LoginViewModel::class.java
@@ -65,10 +61,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
                 Context.MODE_PRIVATE
             ).getString("password", "")
         )
-    }
 
-    override fun startObserve() {
-        super.startObserve()
         baseViewModel.uiLiveData.observe(this, Observer {
             binding.loading.visibility = it.loadingVisible
             binding.login.isClickable = it.clickAble
@@ -84,8 +77,5 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
         })
     }
 
-    override fun errorDeal(it: Exception) {
-        super.errorDeal(it)
-        Toast.makeText(this, it.message.toString(), Toast.LENGTH_LONG).show()
-    }
+
 }

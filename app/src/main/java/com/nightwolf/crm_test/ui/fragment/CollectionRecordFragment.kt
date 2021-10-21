@@ -1,4 +1,4 @@
-package com.nightwolf.crm_test.ui.Fragment
+package com.nightwolf.crm_test.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.base.BaseFragment
 import com.nightwolf.crm_test.databinding.FragmentCollectionRecordBinding
-import com.nightwolf.crm_test.pading.CollcectionPaggingAdater
+import com.nightwolf.crm_test.paging.CollcectionPaggingAdater
 import com.nightwolf.crm_test.ui.activity.CollectionDetailActivity
 import com.nightwolf.crm_test.ui.viewModel.CollectionRecordViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -84,18 +84,15 @@ class CollectionRecordFragment : BaseFragment<CollectionRecordViewModel>() {
     }
 
     override fun initData() {
+        mFragmentViewModel.listDataSize.observe(this, Observer {
+            binding.recordRecycler.adapter!!.notifyDataSetChanged()
+        })
     }
 
     override fun getViewModelClass(): Class<CollectionRecordViewModel> {
         return CollectionRecordViewModel::class.java
     }
 
-    override fun startObserve() {
-        super.startObserve()
-        mFragmentViewModel.listDataSize.observe(this, Observer {
-            binding.recordRecycler.adapter!!.notifyDataSetChanged()
-        })
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

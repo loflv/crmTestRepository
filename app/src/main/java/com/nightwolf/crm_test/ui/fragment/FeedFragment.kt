@@ -1,4 +1,4 @@
-package com.nightwolf.crm_test.ui.Fragment
+package com.nightwolf.crm_test.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.adapter.FeedAdapter
 import com.nightwolf.crm_test.base.BaseFragment
-import com.nightwolf.crm_test.base.FeedBean
+import com.nightwolf.crm_test.bean.FeedBean
 import com.nightwolf.crm_test.databinding.FragmentFeedLinelayoutBinding
 import com.nightwolf.crm_test.ui.viewModel.FeedViewModel
 

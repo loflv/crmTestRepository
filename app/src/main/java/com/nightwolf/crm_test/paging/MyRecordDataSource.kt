@@ -1,16 +1,16 @@
-package com.nightwolf.crm_test.pading
+package com.nightwolf.crm_test.paging
 
 import androidx.paging.PagingSource
 import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.bean.MyReportBean
-import com.nightwolf.crm_test.util.NetWorkUtils
+import com.nightwolf.crm_test.util.RetrofitUtils
 import com.orhanobut.logger.Logger
 
 class MyRecordDataSource(val userId: String) :
     PagingSource<Int, MyReportBean.BodyBean.ReportsBean>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MyReportBean.BodyBean.ReportsBean> {
-        val retrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
+        val retrofitService = RetrofitUtils.createRetrofitService(CrmApi::class.java)
 
         var key = if (params.key == null) {
             1

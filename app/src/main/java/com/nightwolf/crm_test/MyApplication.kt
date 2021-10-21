@@ -51,7 +51,7 @@ class MyApplication : Application() {
     }
 
     /**
-     * 也可调整target 版本实现
+     * Android P开始，限制了对系统API通过反射进行调用。 如果发生了，就会弹出上面的弹框。
      */
     private fun closeAndroidPDialog() {
         try {

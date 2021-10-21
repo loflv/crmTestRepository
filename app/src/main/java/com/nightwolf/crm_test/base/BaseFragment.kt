@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.orhanobut.logger.Logger
 
 
 abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
@@ -29,23 +27,14 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         }
         initView()
         initData()
-        startObserve()
     }
 
     abstract fun getLayoutId(): Int
 
     abstract fun initView()
+
     abstract fun initData()
 
     abstract fun getViewModelClass(): Class<VM>
 
-    open fun startObserve() {
-        mFragmentViewModel.errorLiveData.observe(viewLifecycleOwner, Observer {
-            onError(it)
-        })
-    }
-
-    open fun onError(e: Throwable) {
-        Logger.e(e.message.toString())
-    }
 }

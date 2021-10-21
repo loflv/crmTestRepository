@@ -1,7 +1,5 @@
 package com.nightwolf.crm_test.api
 
-import com.nightwolf.crm_test.base.FeedBean
-import com.nightwolf.crm_test.base.OtherReply
 import com.nightwolf.crm_test.bean.*
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -70,7 +68,7 @@ interface CrmApi {
         @Query("_vs") _vs: String?
     ): String
 
-    @GET()
+    @GET
     suspend fun getKey(@Url url: String): PasswordKeyBean
 
     @GET
@@ -84,7 +82,7 @@ interface CrmApi {
     suspend fun getAuthorizeCode(
         @Url url: String?,
         @Body requestBody: RequestBody?
-    ): authorizeCodeBean
+    ): AuthorizeCodeBean
 
     @FormUrlEncoded
     @POST

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.base.BaseActivity
 import com.nightwolf.crm_test.databinding.ActivityCollectionDetailBinding
 import com.nightwolf.crm_test.ui.viewModel.CollectionDetailViewModel
@@ -24,10 +23,6 @@ class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
     }
 
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_collection_detail
-    }
-
     override fun getViewModelClass(): Class<CollectionDetailViewModel> {
         return CollectionDetailViewModel::class.java
     }
@@ -44,10 +39,7 @@ class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
         baseViewModel.recordBeanId = intent.getLongExtra("recordBeanId", 0)
 
         baseViewModel.findRecordById()
-    }
 
-    override fun startObserve() {
-        super.startObserve()
         baseViewModel.recordRoomBeanLiveData.observe(this, Observer {
             binding.text1Content.text = it.content
             binding.text2Content.text = it.workContent
@@ -60,5 +52,6 @@ class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
             }
         })
     }
+
 
 }

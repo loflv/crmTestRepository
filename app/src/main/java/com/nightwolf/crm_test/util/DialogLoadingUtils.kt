@@ -3,6 +3,9 @@ package com.nightwolf.crm_test.util
 import android.content.Context
 import com.nightwolf.crm_test.ui.LoadingDialog
 
+/**
+ * 全局的弹窗
+ */
 object DialogLoadingUtils {
 
     var dialog: LoadingDialog? = null

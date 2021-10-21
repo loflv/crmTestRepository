@@ -1,6 +1,6 @@
 package com.nightwolf.crm_test.bean
 
-class authorizeCodeBean{
+class AuthorizeCodeBean {
     /**
      * scode : 302
      * result : {"redirectUrl":"https://crm.xiaoshouyi.com/bff/oauth/gettoken?code=sr6esC","type":1}

@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.base.BaseViewModel
-import com.nightwolf.crm_test.base.OtherReply
+import com.nightwolf.crm_test.bean.OtherReply
 import com.nightwolf.crm_test.bean.PostMesBean
+import com.nightwolf.crm_test.ext.ioThread
 import com.nightwolf.crm_test.room.RecordDatabase
 import com.nightwolf.crm_test.room.RecordRoomBean
-import com.nightwolf.crm_test.util.NetWorkUtils
-import com.nightwolf.crm_test.util.ioThread
+import com.nightwolf.crm_test.util.RetrofitUtils
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -41,7 +41,7 @@ class RecordDetailViewModel : BaseViewModel() {
 
     fun sendHaveRead() {
         launch {
-            val phoneRetrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
+            val phoneRetrofitService = RetrofitUtils.createRetrofitService(CrmApi::class.java)
             val sendHaveRead = phoneRetrofitService.sendHaveRead(
                 recordId,
                 "601",
@@ -69,7 +69,7 @@ class RecordDetailViewModel : BaseViewModel() {
      */
     fun signRead() {
         launch {
-            val phoneRetrofitService = NetWorkUtils.phoneRetrofitService(CrmApi::class.java)
+            val phoneRetrofitService = RetrofitUtils.createRetrofitService(CrmApi::class.java)
             phoneRetrofitService.sendMesRead(
                 "1",
                 userId,
@@ -84,7 +84,7 @@ class RecordDetailViewModel : BaseViewModel() {
     fun initData() {
         launch {
             val recordDetail =
-                NetWorkUtils.phoneRetrofitService(CrmApi::class.java).getRecordDetail(
+                RetrofitUtils.createRetrofitService(CrmApi::class.java).getRecordDetail(
                     recordId,
                     userId, "2010.7"
                 )
@@ -100,7 +100,7 @@ class RecordDetailViewModel : BaseViewModel() {
 
 
             //查询其他人的记录
-            val otherReply = NetWorkUtils.phoneRetrofitService(
+            val otherReply = RetrofitUtils.createRetrofitService(
                 CrmApi::class.java,
                 "https://crm-p05.xiaoshouyi.com/"
             ).getOtherReply(

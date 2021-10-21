@@ -10,12 +10,11 @@ import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.base.BaseViewModel
 import com.nightwolf.crm_test.bean.LoginBean
 import com.nightwolf.crm_test.util.Base64Utils
-import com.nightwolf.crm_test.util.NetWorkUtils
 import com.nightwolf.crm_test.util.RSAUtils
+import com.nightwolf.crm_test.util.RetrofitUtils
 import com.nightwolf.crm_test.util.SharedPreferencesRepository
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.net.URLEncoder
 
 class LoginViewModel : BaseViewModel() {
 
@@ -30,8 +29,16 @@ class LoginViewModel : BaseViewModel() {
     fun clickLogin(username: String, password: String) {
         uiLiveData.value = LoginUi(false, View.VISIBLE)
         launch {
-            val retrofit1 = NetWorkUtils.createRetrofitService(CrmApi::class.java, true)
-            val retrofit = NetWorkUtils.createRetrofitService(CrmApi::class.java, false)
+            val retrofit1 = RetrofitUtils.createRetrofitService(
+                CrmApi::class.java,
+                "https://crm.xiaoshouyi.com/auc/",
+                true
+            )
+            val retrofit = RetrofitUtils.createRetrofitService(
+                CrmApi::class.java,
+                "https://crm.xiaoshouyi.com/auc/",
+                false
+            )
             //获取key
             retrofit1.mainIndex(
                 "https://crm.xiaoshouyi.com/mobile/auc/loginSupport.action?&os=28&_vs=2010.7" +
@@ -57,7 +64,6 @@ class LoginViewModel : BaseViewModel() {
             //登录失败
             if (login.result !is LoginBean.ResultBean) {
                 uiLiveData.value = LoginUi(true, View.GONE)
-                errorLiveData.value = Exception(login.error_msg)
                 return@launch
             }
 

@@ -7,7 +7,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.base.BaseViewModel
-import com.nightwolf.crm_test.pading.MyRecordDataSource
+import com.nightwolf.crm_test.paging.MyRecordDataSource
 
 class MyReportVieModel : BaseViewModel() {
 

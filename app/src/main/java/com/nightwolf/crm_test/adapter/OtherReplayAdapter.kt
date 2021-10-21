@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nightwolf.crm_test.R
-import com.nightwolf.crm_test.base.OtherReply
+import com.nightwolf.crm_test.bean.OtherReply
 import com.nightwolf.crm_test.databinding.RecyclterItemOtherReplayBinding
 import java.text.SimpleDateFormat
 

@@ -1,4 +1,4 @@
-package com.nightwolf.crm_test.ui.Fragment
+package com.nightwolf.crm_test.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
