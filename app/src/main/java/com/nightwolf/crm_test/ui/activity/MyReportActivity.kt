@@ -12,6 +12,9 @@ import com.nightwolf.crm_test.ui.viewModel.MyReportVieModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * 我的日报
+ */
 class MyReportActivity : BaseActivity<MyReportVieModel>() {
 
 
@@ -48,11 +51,4 @@ class MyReportActivity : BaseActivity<MyReportVieModel>() {
         return MyReportVieModel::class.java
     }
 
-    override fun initView() {
-
-
-    }
-
-    override fun initData() {
-    }
 }

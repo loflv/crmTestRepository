@@ -14,6 +14,9 @@ import com.nightwolf.crm_test.bean.FeedBean
 import com.nightwolf.crm_test.databinding.FragmentFeedLinelayoutBinding
 import com.nightwolf.crm_test.ui.viewModel.FeedViewModel
 
+/**
+ * @我的界面
+ */
 class FeedFragment : BaseFragment<FeedViewModel>() {
     override fun getLayoutId(): Int {
         return R.layout.fragment_feed_linelayout

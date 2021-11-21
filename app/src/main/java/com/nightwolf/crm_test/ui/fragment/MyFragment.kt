@@ -15,7 +15,7 @@ import com.nightwolf.crm_test.ui.activity.MyReportActivity
 import com.nightwolf.crm_test.ui.viewModel.LoginViewModel
 
 /**
- * A simple [Fragment] subclass.
+ * 我的界面
  */
 class MyFragment : BaseFragment<LoginViewModel>() {
 

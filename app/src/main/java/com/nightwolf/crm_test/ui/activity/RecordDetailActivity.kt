@@ -2,6 +2,7 @@ package com.nightwolf.crm_test.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,7 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
     }
 
     lateinit var binding: ActivityRecordDetailBinding
-    override fun initView() {
+     fun initView() {
         binding = ActivityRecordDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.read.setOnClickListener {
@@ -67,7 +68,13 @@ class RecordDetailActivity : BaseActivity<RecordDetailViewModel>() {
 
     }
 
-    override fun initData() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+        initData()
+    }
+
+    fun initData() {
         baseViewModel.recordId = intent.getLongExtra("recordId", 0).toString()
         baseViewModel.userId = intent.getLongExtra("userId", 0).toString()
         baseViewModel.initData()

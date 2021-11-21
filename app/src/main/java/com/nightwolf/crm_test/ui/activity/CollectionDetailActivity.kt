@@ -2,6 +2,7 @@ package com.nightwolf.crm_test.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -9,7 +10,9 @@ import com.nightwolf.crm_test.base.BaseActivity
 import com.nightwolf.crm_test.databinding.ActivityCollectionDetailBinding
 import com.nightwolf.crm_test.ui.viewModel.CollectionDetailViewModel
 
-
+/**
+ * 收集详情
+ */
 class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
 
     lateinit var binding: ActivityCollectionDetailBinding
@@ -27,7 +30,13 @@ class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
         return CollectionDetailViewModel::class.java
     }
 
-    override fun initView() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+        initData()
+    }
+
+    fun initView() {
         binding = ActivityCollectionDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.removeButton.setOnClickListener {
@@ -35,7 +44,7 @@ class CollectionDetailActivity : BaseActivity<CollectionDetailViewModel>() {
         }
     }
 
-    override fun initData() {
+    fun initData() {
         baseViewModel.recordBeanId = intent.getLongExtra("recordBeanId", 0)
 
         baseViewModel.findRecordById()

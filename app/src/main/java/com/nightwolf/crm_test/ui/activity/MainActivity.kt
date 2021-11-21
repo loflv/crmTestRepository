@@ -1,6 +1,7 @@
 package com.nightwolf.crm_test.ui.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.core.view.get
 import androidx.navigation.Navigation
@@ -9,6 +10,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VI
 import com.nightwolf.crm_test.R
 import com.nightwolf.crm_test.base.BaseActivity
 import com.nightwolf.crm_test.databinding.ActivityMainBinding
+import com.nightwolf.crm_test.ext.setBadge
 import com.nightwolf.crm_test.ui.viewModel.MainViewModel
 
 class MainActivity : BaseActivity<MainViewModel>() {
@@ -20,12 +22,18 @@ class MainActivity : BaseActivity<MainViewModel>() {
         return MainViewModel::class.java
     }
 
-    override fun initView() {
+     fun initView() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initNavigation()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+        initData()
     }
 
     /**
@@ -61,7 +69,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
         binding.bottomNavigationView.labelVisibilityMode = LABEL_VISIBILITY_LABELED
     }
 
-    override fun initData() {
+     fun initData() {
         baseViewModel.isLogin().observe(this, {
             if (!it) {
                 val intent = Intent(this, LoginActivity::class.java)
@@ -69,6 +77,13 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 finish()
             }
         })
+
+         //设置未读角标
+         baseViewModel.getFeedBack().observe(this,{
+             binding.bottomNavigationView.setBadge(1,it?.size?:0)
+         })
+
+
     }
 
 

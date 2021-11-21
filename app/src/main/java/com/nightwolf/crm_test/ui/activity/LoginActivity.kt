@@ -3,6 +3,7 @@ package com.nightwolf.crm_test.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.nightwolf.crm_test.MyApplication
@@ -11,6 +12,9 @@ import com.nightwolf.crm_test.databinding.ActivityLoginBinding
 import com.nightwolf.crm_test.ui.viewModel.LoginViewModel
 
 
+/**
+ * 登录界面
+ */
 class LoginActivity : BaseActivity<LoginViewModel>() {
 
     lateinit var binding: ActivityLoginBinding
@@ -20,13 +24,19 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
         return LoginViewModel::class.java
     }
 
-    override fun initView() {
+     fun initView() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
         clickEvent()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initView()
+        initData()
     }
 
     /**
@@ -45,7 +55,7 @@ class LoginActivity : BaseActivity<LoginViewModel>() {
     /**
      * 过期重新登录时
      */
-    override fun initData() {
+     fun initData() {
         val phone = MyApplication.mContext.getSharedPreferences(
             "login",
             Context.MODE_PRIVATE

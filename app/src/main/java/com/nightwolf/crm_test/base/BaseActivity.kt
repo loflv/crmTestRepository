@@ -20,17 +20,11 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
 
         StatusBarUtils.setColor(this, Color.parseColor("#AABF68"))
 
-        initView()
-        initData()
-
     }
 
 
     abstract fun getViewModelClass(): Class<VM>
 
-    abstract fun initView()
-
-    abstract fun initData()
 
 
 }

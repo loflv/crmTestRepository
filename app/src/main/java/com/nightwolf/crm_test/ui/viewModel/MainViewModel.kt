@@ -3,7 +3,11 @@ package com.nightwolf.crm_test.ui.viewModel
 import android.content.Context
 import androidx.lifecycle.asLiveData
 import com.nightwolf.crm_test.MyApplication
+import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.base.BaseViewModel
+import com.nightwolf.crm_test.util.RetrofitUtils
+import com.orhanobut.logger.Logger
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
 class MainViewModel : BaseViewModel() {
@@ -28,5 +32,15 @@ class MainViewModel : BaseViewModel() {
         ).getString("x-ienterprise-passport", "")
 
         emit(cookie?.isNotBlank() ?: false)
+    }.asLiveData()
+
+
+    fun getFeedBack() = flow {
+        val otherReply = RetrofitUtils.createRetrofitService(CrmApi::class.java).getFeed(
+            20, 1, 1, userId.toString(), "2010.7"
+        )
+        emit(otherReply.body?.atList)
+    }.catch {
+        Logger.e(it.message.toString())
     }.asLiveData()
 }

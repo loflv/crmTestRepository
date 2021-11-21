@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 /**
  * 其他人提交的记录
- * 会被返回创建头疼疼
+ * 会被返回创建，头疼疼
  */
 class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
 
