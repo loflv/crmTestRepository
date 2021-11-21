@@ -12,13 +12,13 @@ android {
         }
     }
 
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.nightwolf.crm_test"
         minSdkVersion 24
-        targetSdkVersion 27
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -88,7 +88,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     compileOnly 'com.google.android.wearable:wearable:2.6.0'
 
-    def room_version = "2.3.0"
+    def room_version = "2.4.0-alpha03"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
