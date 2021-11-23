@@ -14,6 +14,7 @@ import com.nightwolf.crm_test.base.BaseFragment
 import com.nightwolf.crm_test.bean.PostMesList
 import com.nightwolf.crm_test.bean.global.NO_NET_WORK_ERROR
 import com.nightwolf.crm_test.databinding.FragmentRecordBinding
+import com.nightwolf.crm_test.paging.PagingFootAdapter
 import com.nightwolf.crm_test.paging.RecordPagingAdapter
 import com.nightwolf.crm_test.ui.activity.LoginActivity
 import com.nightwolf.crm_test.ui.activity.RecordDetailActivity
@@ -50,7 +51,8 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
     override fun initView() {
 
         binding.myRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        binding.myRecycler.adapter = adapterRecord
+        //!!!! 这里要用返回的adapater
+        binding.myRecycler.adapter =  adapterRecord.withLoadStateFooter(PagingFootAdapter(adapterRecord))
 
         binding.swipeRefresh.setOnRefreshListener {
             adapterRecord.refresh()
@@ -94,10 +96,21 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
 
             when (it.append) {
                 is LoadState.Error -> {
-                    errorDeal(it.refresh)
+                    errorDeal(it.append)
+                }
+                is LoadState.NotLoading -> {
+                    binding.swipeRefresh.isRefreshing = false
+                }
+                is LoadState.Loading -> {
+                    binding.swipeRefresh.isRefreshing = true
                 }
             }
         }
+
+
+//        adapter.loadStateFlow.collectLatest { state ->
+//            mViewBinding.swipeRefresh.isRefreshing = state.refresh is LoadState.Loading
+
 
     }
 
@@ -106,15 +119,9 @@ class RecordFragment : BaseFragment<RecordFragmentViewModel>() {
      * @param it LoadState
      */
     private fun errorDeal(it: LoadState) {
+
         val message = (it as LoadState.Error).error.message
         ToastUtil.show(message)
-
-        if (message == NO_NET_WORK_ERROR) {
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags =
-                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-        }
     }
 
     override fun getLayoutId(): Int {
