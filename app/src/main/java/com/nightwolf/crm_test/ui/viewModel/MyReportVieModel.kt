@@ -16,7 +16,7 @@ class MyReportVieModel : BaseViewModel() {
         Context.MODE_PRIVATE
     ).getLong("passport_id", 0)
 
-    fun loadMes() = Pager(PagingConfig(20)) {
+    fun loadMes() = Pager(PagingConfig(20, initialLoadSize = 20)) {
         MyRecordDataSource(userId.toString())
     }.flow.cachedIn(viewModelScope)
 }

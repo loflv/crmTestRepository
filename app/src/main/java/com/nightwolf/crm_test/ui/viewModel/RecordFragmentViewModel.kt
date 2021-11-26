@@ -9,7 +9,7 @@ import com.nightwolf.crm_test.paging.RecordDataSource
 
 class RecordFragmentViewModel : BaseViewModel() {
 
-    fun loadMes(userId: String, unread: Int) = Pager(PagingConfig(3)) {
+    fun loadMes(userId: String, unread: Int) = Pager(PagingConfig(8, initialLoadSize = 8)) {
         RecordDataSource(userId, unread)
     }.flow
         //无用

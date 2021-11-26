@@ -32,6 +32,7 @@
             android:resource="@xml/network_secrity" />
 
         <activity
+            android:exported="true"
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask">
             <meta-data

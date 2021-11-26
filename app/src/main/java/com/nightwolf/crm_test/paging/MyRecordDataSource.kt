@@ -1,6 +1,7 @@
 package com.nightwolf.crm_test.paging
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.bean.MyReportBean
 import com.nightwolf.crm_test.util.RetrofitUtils
@@ -23,7 +24,7 @@ class MyRecordDataSource(val userId: String) :
             "2010.7",
             "desc",
             "created_at",
-            params.pageSize,
+            params.loadSize,
             key!!
         )
 
@@ -44,6 +45,10 @@ class MyRecordDataSource(val userId: String) :
             Logger.e(e.message.toString())
             LoadResult.Error(e)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, MyReportBean.BodyBean.ReportsBean>): Int? {
+        return null
     }
 
 }

@@ -1,6 +1,7 @@
 package com.nightwolf.crm_test.paging
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.nightwolf.crm_test.MyApplication
 import com.nightwolf.crm_test.api.CrmApi
 import com.nightwolf.crm_test.bean.PostMesList
@@ -32,8 +33,16 @@ class RecordDataSource(val userId: String, val unread: Int) :
             LoadResult.Page(
                 //需要加载的数据
                 data = record.body!!.notices!!
+                    .filter {  bean ->
+                        if (unread == 0) {
+                            (bean.content!!.contains("提交") && bean.status == 0)
+                        } else {
+                            true
+                        }
+
+                    }
                     .apply {
-                        if (this.size < 2) {
+                        if (this.isEmpty()) {
                             emptyTime++
                         } else {
                             emptyTime = 0
@@ -53,6 +62,10 @@ class RecordDataSource(val userId: String, val unread: Int) :
             Logger.e(e.message.toString())
             LoadResult.Error(e)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Long, PostMesList.BodyBean.NoticesBean>): Long? {
+        return null
     }
 
 }
